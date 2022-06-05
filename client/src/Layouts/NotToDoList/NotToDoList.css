@@ -1,0 +1,15 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.ntdl-container Container{
+    display:block;
+    padding: 20px;
+    overflow-x: hidden !important;
+}
+
+.ntdl-container p{
+    overflow-x: hidden !important;
+    text-align: justify;
+}
