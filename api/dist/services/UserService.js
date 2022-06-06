@@ -40,5 +40,11 @@ var UserService;
         return result;
     }
     UserService.getUserById = getUserById;
+    function getIdByEmail(email) {
+        var query = "SELECT idusuario from mydb.usuarios where email = '" + email + "'";
+        var result = model_1.default.execQuery(query);
+        return result;
+    }
+    UserService.getIdByEmail = getIdByEmail;
 })(UserService || (UserService = {}));
 exports.default = UserService;
