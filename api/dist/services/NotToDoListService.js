@@ -20,7 +20,7 @@ var NotToDoListService;
     }
     NotToDoListService.deleteNote = deleteNote;
     function updateNote(id, nombre) {
-        var query = "UPDATE mydb.not_to_do_list SET Nombre = '" + nombre + "' WHERE idnot_to_do_list = '" + id + "'";
+        var query = "UPDATE mydb.not_to_do_list SET nombre = '" + nombre + "' WHERE idnot_to_do_list = '" + id + "'";
         var result = model_1.default.execQuery(query);
         return result;
     }
@@ -32,7 +32,7 @@ var NotToDoListService;
     }
     NotToDoListService.getAllNotes = getAllNotes;
     function getById(id) {
-        var query = "SELECT * from mydb.not_to_do_list where idemocion = '" + id + "'";
+        var query = "SELECT * from mydb.not_to_do_list where idnot_to_do_list = '" + id + "'";
         var result = model_1.default.execQuery(query);
         return result;
     }

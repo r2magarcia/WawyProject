@@ -18,7 +18,7 @@ module NotToDoListService {
     }
 
     export function updateNote(id: number, nombre: string){
-        const query = `UPDATE mydb.not_to_do_list SET Nombre = '${nombre}' WHERE idnot_to_do_list = '${id}'`;
+        const query = `UPDATE mydb.not_to_do_list SET nombre = '${nombre}' WHERE idnot_to_do_list = '${id}'`;
         const result = Model.execQuery(query);
         return result;
     }
@@ -30,7 +30,7 @@ module NotToDoListService {
     }
     
     export function getById(id: number){
-        const query = `SELECT * from mydb.not_to_do_list where idemocion = '${id}'`;
+        const query = `SELECT * from mydb.not_to_do_list where idnot_to_do_list = '${id}'`;
         const result = Model.execQuery(query);
         return result;
     }
