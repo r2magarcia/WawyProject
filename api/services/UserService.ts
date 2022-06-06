@@ -39,6 +39,13 @@ module UserService {
         return result;
     }
 
+    export function getIdByEmail(email: string){
+        const query = `SELECT idusuario from mydb.usuarios where email = '${email}'`;
+        const result = Model.execQuery(query);
+        return result;
+    }
+
+
 
 }
 

@@ -20,11 +20,11 @@ var model_1 = __importDefault(require("./model"));
 // import { ModelI } from '../interfaces/ModelI';
 var User = /** @class */ (function (_super) {
     __extends(User, _super); /*implements ModelI*/
-    function User(nombre, email, contrasena, active, idlist) {
+    function User(nombre, email, contrasena, active, idusuario) {
         var _this = _super.call(this) || this;
-        _this.idlist = null;
-        if (idlist) {
-            _this.idlist = idlist;
+        _this.idusuario = null;
+        if (idusuario) {
+            _this.idusuario = idusuario;
         }
         ;
         _this.nombre = nombre;

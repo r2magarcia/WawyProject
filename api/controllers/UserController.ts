@@ -14,3 +14,12 @@ export async function createUser(req: Request, res: Response){
     const response : User = await UserService.inserUser(user.email, user.contrasena, user.active);
     res.status(201).json(response);
 }
+
+export async function getIdByEmail(req: Request, res: Response){
+    console.log("get all Users controller");
+    const email:string = req.body.email;
+    const users: Array<User>=await UserService.getIdByEmail(email);
+    console.log(users);
+    
+    res.status(201).json(users);
+}

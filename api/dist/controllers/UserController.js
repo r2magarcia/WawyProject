@@ -39,7 +39,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.createUser = exports.getAllUsers = void 0;
+exports.getIdByEmail = exports.createUser = exports.getAllUsers = void 0;
 var UserService_1 = __importDefault(require("../services/UserService"));
 var UserModel_1 = __importDefault(require("../models/UserModel"));
 function getAllUsers(req, res) {
@@ -77,3 +77,22 @@ function createUser(req, res) {
     });
 }
 exports.createUser = createUser;
+function getIdByEmail(req, res) {
+    return __awaiter(this, void 0, void 0, function () {
+        var email, users;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    console.log("get all Users controller");
+                    email = req.body.email;
+                    return [4 /*yield*/, UserService_1.default.getIdByEmail(email)];
+                case 1:
+                    users = _a.sent();
+                    console.log(users);
+                    res.status(201).json(users);
+                    return [2 /*return*/];
+            }
+        });
+    });
+}
+exports.getIdByEmail = getIdByEmail;
