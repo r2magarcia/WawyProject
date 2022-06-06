@@ -19,7 +19,7 @@ export default class AppContent extends Component {
                 <Routes>
                   <Route
                     path="/not-to-do-list"
-                    element={<NotToDoList />}
+                    element={<NotToDoList loggedUser="srt6221@gmail.com"/>}
                   ></Route>
                   <Route
                     path="/"

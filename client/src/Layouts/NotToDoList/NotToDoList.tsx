@@ -1,9 +1,24 @@
 import React from "react";
 import { Component } from "react";
+import { propTypes } from "react-bootstrap/esm/Image";
 import Activity, { category } from "./Activity/Activity";
 import "./NotToDoList.css";
 
-export default class NotToDoList extends Component {
+const { url } = require("../../config");
+
+interface props {
+  loggedUser: string
+}
+
+interface state {
+}
+
+export default class NotToDoList extends Component<props, state> {
+  loggedUser: string;
+  constructor(props: props) {
+    super(props);
+    this.loggedUser=this.props.loggedUser
+  }
   categories: Array<category> = [
     {
       title: "Cosas que te hacen perder el tiempo",
@@ -56,7 +71,39 @@ export default class NotToDoList extends Component {
       ],
     },
   ];
+
+  getData() {
+    const request = new Request(`${url}/note/byuser/${this.loggedUser}`, {
+      method: "GET",
+      mode: 'no-cors',
+      //body: '{"email": "srt6221@gmail.com"}',
+    });
+    fetch(request)
+      .then((response) => {
+        console.log(request.url);
+        console.log(response.status);
+        console.log(response.body);
+        
+        
+        
+        if (response.status >= 200 && response.status<300) {
+          return response.json();
+        } else {
+          throw new Error("Something went wrong on API server!");
+        }
+      })
+      .then((response) => {
+        console.debug(response);
+        // ...
+      })
+      .catch((error) => {
+        console.log("error");
+        
+        console.error(error);
+      });
+  }
   render() {
+    this.getData();
     return (
       <>
         <div className="ntdl-container">
