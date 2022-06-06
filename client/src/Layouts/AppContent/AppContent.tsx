@@ -27,7 +27,7 @@ export default class AppContent extends Component {
                   ></Route>
                   <Route
                     path="/diario-de-emociones"
-                    element={<DiarioEmociones />}
+                    element={<DiarioEmociones loggedUser="srt6221@gmail.com"/>}
                   ></Route>
                 </Routes>
               </BrowserRouter>

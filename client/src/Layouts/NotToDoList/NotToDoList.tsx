@@ -20,37 +20,10 @@ export default class NotToDoList extends Component<props, state> {
   constructor(props: props) {
     super(props);
     this.loggedUser = this.props.loggedUser;
-    this.getDataFromServer = this.getDataFromServer.bind(this);
     this.state = { data: [] };
   }
   categories: Array<category> = [];
   anything: any;
-
-  async getDataFromServer(): Promise<any> {
-    const request = new Request(`${url}/note/byuser/${this.loggedUser}`, {
-      method: "GET",
-      headers: {
-        Accept: "application/json",
-      },
-      //body: '{"email": "srt6221@gmail.com"}',
-    });
-    fetch(request)
-      .then((response) => {
-        if (response.status >= 200 && response.status < 300) {
-          const res = response.json();
-          console.log(res);
-
-          return res;
-        } else {
-          throw new Error("Something went wrong on API server!");
-        }
-      })
-      .catch((error) => {
-        console.log("error");
-
-        console.error(error);
-      });
-  }
 
   render() {
     return (
