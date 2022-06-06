@@ -17,7 +17,7 @@ export async function createUser(req: Request, res: Response){
 
 export async function getIdByEmail(req: Request, res: Response){
     console.log("get all Users controller");
-    const email:string = req.body.email;
+    const email:string = req.params.email;
     const users: Array<User>=await UserService.getIdByEmail(email);
     console.log(users);
     

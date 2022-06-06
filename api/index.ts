@@ -30,12 +30,12 @@ app.route('/user')
 app.route('/note')
 .get(UserHasListService.getAllNotes)
 .post(UserHasListService.createNote);
-app.route('/note/byuser')
+app.route('/note/byuser/:email')
 .get(UserHasListService.getAllUserNotes);
 app.route('/diary')
 .get(DiaryController.getAllNotes)
 .post(DiaryController.createNote);
-app.route('/diary/sorted')
+app.route('/diary/sorted/:email')
 .get(DiaryController.getDiarySorted);
 
 app.listen(port, () => {

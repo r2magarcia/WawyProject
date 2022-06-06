@@ -23,7 +23,9 @@ export async function createNote(req: Request, res: Response){
 
 export async function getAllUserNotes(req: Request, res: Response){
     console.log("get all line from user controller");
-    const line:string = req.body.email;
+    const line:string = req.params.email;
+    console.log(line);
+    
     const users: Array<User> = await UserService.getIdByEmail(line)
     const user = users[0].idusuario || 0;
     const noteResponse: Array<User_NotToDoList>=await UserHasListService.getUserHasListByUserId(user);
@@ -57,5 +59,5 @@ export async function getAllUserNotes(req: Request, res: Response){
     console.log(response);
     
     
-    res.status(201).json(response);
+    res.status(200).json(response);
 }

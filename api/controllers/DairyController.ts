@@ -22,7 +22,7 @@ export async function createNote(req: Request, res: Response){
 
 export async function getDiarySorted(req: Request, res: Response){
     console.log("get all book controller sorted");
-    const line:string = req.body.email;
+    const line:string = req.params.email;
     const users: Array<User> = await UserService.getIdByEmail(line)
     console.log(users);
     let user:number;
@@ -57,5 +57,5 @@ export async function getDiarySorted(req: Request, res: Response){
     })
     // console.log(book);
     
-    res.status(201).json(response);
+    res.status(200).json(response);
 }
