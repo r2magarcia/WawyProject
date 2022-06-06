@@ -3,6 +3,7 @@ import { Component } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Chat from "../Chat/Chat";
+import DiarioEmociones from "../DiarioEmociones/DiarioEmociones";
 import Home from "../Home/Home";
 import NotToDoList from "../NotToDoList/NotToDoList";
 import "./AppContent.css";
@@ -23,6 +24,10 @@ export default class AppContent extends Component {
                   <Route
                     path="/"
                     element={<Home />}
+                  ></Route>
+                  <Route
+                    path="/diario-de-emociones"
+                    element={<DiarioEmociones />}
                   ></Route>
                 </Routes>
               </BrowserRouter>
