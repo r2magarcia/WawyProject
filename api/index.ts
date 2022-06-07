@@ -6,6 +6,7 @@ import * as NotToDoListController from "./controllers/NotToDoListController";
 import * as UserController from "./controllers/UserController";
 import * as UserHasListService from "./controllers/User_NotToDoListController";
 import * as DiaryController from "./controllers/DairyController";
+import * as EstadoEController from "./controllers/EstadosEController";
 
 const app = express();
 const {port} = require('./config');
@@ -37,6 +38,9 @@ app.route('/diary')
 .post(DiaryController.createNote);
 app.route('/diary/sorted/:email')
 .get(DiaryController.getDiarySorted);
+
+app.route('/emotion')
+.get(EstadoEController.getAllEstados)
 
 app.listen(port, () => {
     console.log(`Node JS Server started at port ${port}`);
