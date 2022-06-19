@@ -4,35 +4,35 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var model_1 = __importDefault(require("../models/model"));
-var db = require('../config').db;
+var database = require('../config').database;
 var NotToDoListService;
 (function (NotToDoListService) {
-    function insertNote(name) {
-        var query = "INSERT INTO mydb.not_to_do_list (idnot_to_do_list, nombre) VALUES (NULL, '" + name + "')";
+    function insertNote(contenido, categoria, userEmail) {
+        var query = "INSERT INTO " + database + ".nottodolist (id, contenido, idCategoria, idUsuario) VALUES (NULL, '" + contenido + "', " + categoria + ", (SELECT idusuario FROM " + database + ".usuarios WHERE email='" + userEmail + "' LIMIT 1))";
         var result = model_1.default.execQuery(query);
         return result;
     }
     NotToDoListService.insertNote = insertNote;
     function deleteNote(id) {
-        var query = "DELETE FROM mydb.not_to_do_list WHERE idnot_to_do_list = '" + id + "'";
+        var query = "DELETE FROM " + database + ".nottodolist WHERE id = '" + id + "'";
         var result = model_1.default.execQuery(query);
         return result;
     }
     NotToDoListService.deleteNote = deleteNote;
     function updateNote(id, nombre) {
-        var query = "UPDATE mydb.not_to_do_list SET nombre = '" + nombre + "' WHERE idnot_to_do_list = '" + id + "'";
+        var query = "UPDATE " + database + ".nottodolist SET nombre = '" + nombre + "' WHERE id = '" + id + "'";
         var result = model_1.default.execQuery(query);
         return result;
     }
     NotToDoListService.updateNote = updateNote;
     function getAllNotes() {
-        var query = "SELECT * from mydb.not_to_do_list";
+        var query = "SELECT * from " + database + ".nottodolist";
         var result = model_1.default.execQuery(query);
         return result;
     }
     NotToDoListService.getAllNotes = getAllNotes;
     function getById(id) {
-        var query = "SELECT * from mydb.not_to_do_list where idnot_to_do_list = '" + id + "'";
+        var query = "SELECT * from " + database + ".nottodolist where id = '" + id + "'";
         var result = model_1.default.execQuery(query);
         return result;
     }

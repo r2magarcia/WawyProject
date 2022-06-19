@@ -39,3 +39,47 @@ calendar::first-letter {
 .calendar-container{
     overflow-x: hidden !important;
 }
+
+.cards{
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+}
+
+
+.form-emotion{
+    margin-right: 15px  !important;
+}
+
+.form-emotion form{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100px;
+}
+
+.card-body{
+    display: flex;
+    flex-flow: column;
+    height: fit-content;
+}
+
+.color-meaning{
+    max-width: 300px;
+    margin-right: 15px;
+}
+
+.list-group-item{
+    padding: 5px;
+}
+
+.content-container{
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+}
+
+.calendar{
+    width: 400px;
+}
+

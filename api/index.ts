@@ -4,7 +4,7 @@ import cors from "cors";
 import * as wawycontroller from "./controllers/wawycontroller";
 import * as NotToDoListController from "./controllers/NotToDoListController";
 import * as UserController from "./controllers/UserController";
-import * as UserHasListService from "./controllers/User_NotToDoListController";
+import * as UserHasListController from "./controllers/User_NotToDoListController";
 import * as DiaryController from "./controllers/DairyController";
 import * as EstadoEController from "./controllers/EstadosEController";
 
@@ -29,10 +29,10 @@ app.route('/user')
 // app.route('/user/byid')
 // .get(UserController.getIdByEmail);
 app.route('/note')
-.get(UserHasListService.getAllNotes)
-.post(UserHasListService.createNote);
+.get(UserHasListController.getAllNotes)
+.post(UserHasListController.createNote);
 app.route('/note/byuser/:email')
-.get(UserHasListService.getAllUserNotes);
+.get(NotToDoListController.getAllUserNotes);
 app.route('/diary')
 .get(DiaryController.getAllNotes)
 .post(DiaryController.createNote);

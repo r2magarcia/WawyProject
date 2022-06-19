@@ -1,3 +1,3 @@
 module.exports = {
-    url: 'https://6305-186-168-159-124.ngrok.io',
+    url: 'https://c6dc-186-168-159-124.ngrok.io',
 }

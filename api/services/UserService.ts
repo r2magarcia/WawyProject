@@ -1,46 +1,46 @@
 import User from '../models/UserModel';
 import Model from '../models/model';
 
-const { db } = require('../config');
+const { database } = require('../config');
 
 module UserService {
 
     export function inserUser(email: string, contrasena:string, activo: number){
-        const query = `INSERT INTO mydb.usuarios (idusuario, email, contrasena, activo) VALUES (NULL, '${email}', '${contrasena}', '${activo}')`;
+        const query = `INSERT INTO ${database}.usuarios (idusuario, email, contrasena, activo) VALUES (NULL, '${email}', '${contrasena}', '${activo}')`;
         const result = Model.execQuery(query);
         return result;
     }
 
     export function deleteUser(id: number){
-        const query = `DELETE FROM mydb.usuariost WHERE idusuario = '${id}'`;
+        const query = `DELETE FROM ${database}.usuariost WHERE idusuario = '${id}'`;
         const result = Model.execQuery(query);
         return result;
     }
 
     export function updateUser(id: number, email: string){
-        const query = `UPDATE mydb.usuarios SET email = '${email}' WHERE idusuario = '${id}'`;
+        const query = `UPDATE ${database}.usuarios SET email = '${email}' WHERE idusuario = '${id}'`;
         const result = Model.execQuery(query);
         return result;
     }
 
     /*export function setActive(id:number){
-        const query = `UPDATE mydb.usuarios SET activo = true`
+        const query = `UPDATE ${database}.usuarios SET activo = true`
     }*/
 
     export function getAllUsers(){
-        const query = `SELECT * from mydb.usuarios`;
+        const query = `SELECT * from ${database}.usuarios`;
         const result = Model.execQuery(query);
         return result;
     }
     
     export function getUserById(id: number){
-        const query = `SELECT * from mydb.usuarios where idusuario = '${id}'`;
+        const query = `SELECT * from ${database}.usuarios where idusuario = '${id}'`;
         const result = Model.execQuery(query);
         return result;
     }
 
     export function getIdByEmail(email: string){
-        const query = `SELECT idusuario from mydb.usuarios where email = '${email}'`;
+        const query = `SELECT idusuario from ${database}.usuarios where email = '${email}'`;
         const result = Model.execQuery(query);
         return result;
     }

@@ -27,8 +27,9 @@ var body_parser_1 = __importDefault(require("body-parser"));
 var wawycontroller = __importStar(require("./controllers/wawycontroller"));
 var NotToDoListController = __importStar(require("./controllers/NotToDoListController"));
 var UserController = __importStar(require("./controllers/UserController"));
-var UserHasListService = __importStar(require("./controllers/User_NotToDoListController"));
+var UserHasListController = __importStar(require("./controllers/User_NotToDoListController"));
 var DiaryController = __importStar(require("./controllers/DairyController"));
+var EstadoEController = __importStar(require("./controllers/EstadosEController"));
 var app = express_1.default();
 var port = require('./config').port;
 // const options:cors.CorsOptions ={
@@ -47,15 +48,17 @@ app.route('/user')
 // app.route('/user/byid')
 // .get(UserController.getIdByEmail);
 app.route('/note')
-    .get(UserHasListService.getAllNotes)
-    .post(UserHasListService.createNote);
+    .get(UserHasListController.getAllNotes)
+    .post(UserHasListController.createNote);
 app.route('/note/byuser/:email')
-    .get(UserHasListService.getAllUserNotes);
+    .get(NotToDoListController.getAllUserNotes);
 app.route('/diary')
     .get(DiaryController.getAllNotes)
     .post(DiaryController.createNote);
 app.route('/diary/sorted/:email')
     .get(DiaryController.getDiarySorted);
+app.route('/emotion')
+    .get(EstadoEController.getAllEstados);
 app.listen(port, function () {
     console.log("Node JS Server started at port " + port);
 });
