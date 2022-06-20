@@ -37,5 +37,11 @@ var NotToDoListService;
         return result;
     }
     NotToDoListService.getById = getById;
+    function getByName(nombre) {
+        var query = "SELECT idnot_to_do_list from mydb.not_to_do_list where nombre = '" + nombre + "'";
+        var result = model_1.default.execQuery(query);
+        return result;
+    }
+    NotToDoListService.getByName = getByName;
 })(NotToDoListService || (NotToDoListService = {}));
 exports.default = NotToDoListService;

@@ -15,8 +15,16 @@ export async function getAllNotes(req: Request, res: Response){
 
 export async function createNote(req: Request, res: Response){
     console.log(req.body);
-    const book: Dairy= new Dairy(req.body.fecha, req.body.estados_emocionales_idmocion, req.body.usuarios_idusuario);
-    const response : Dairy = await DiaryService.insertDiary(book.fecha, book.estados_emocionales_idemocion, book.usuarios_idusuario);
+    const request = req.body;
+    let response : Array<Dairy> = [];
+    request.forEach(async(element:any) => {
+        const users: Array<User> = await UserService.getIdByEmail(element.email);
+        const user = users[0].idusuario || 0;
+        const emotions: Array<EstadoE> = await EstadosService.getEstadoByNombre(element.emocion);
+        const emotion = emotions[0].idemocion || 0;
+        const book: Dairy = new Dairy(element.fecha, emotion, user);
+        response.push(await DiaryService.insertDiary(book.fecha, book.estados_emocionales_idemocion, book.usuarios_idusuario));
+    });
     res.status(201).json(response);
 }
 
@@ -34,7 +42,9 @@ export async function getDiarySorted(req: Request, res: Response){
     let book: Array<Dairy>;
     const status:Array<EstadoE> = await EstadosService.getAllEstados();
     try {
+        
         book = await DiaryService.getDiarySorted(user);
+        console.log(book);
     } catch (error) {
         throw new Error("Bad request");
     }
@@ -42,17 +52,22 @@ export async function getDiarySorted(req: Request, res: Response){
 
     let response: Array<any> = [];
 
-    status.map((e)=>{
+    book.map((e)=>{
 
         response.push({
-            date: book.filter(el=>{
+            fecha:e.fecha,
+            emotion: status.filter(el=>{
 
-                if(el.estados_emocionales_idemocion==e.idemocion){
-                    return el.fecha;
+                if(el.idemocion==e.estados_emocionales_idemocion){
+                    return el.texto;
                 }
-            }).map(e=>e.fecha)[0],
-            emotion:e.texto,
-            color:e.color
+            })[0].texto,
+            color:status.filter(el=>{
+
+                if(el.idemocion==e.estados_emocionales_idemocion){
+                    return el.color;
+                }
+            })[0].color,
         })
     })
     // console.log(book);

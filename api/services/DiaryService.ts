@@ -36,10 +36,10 @@ module DiaryService {
     }
 
     export function getDiarySorted(id:number){
-        const query = `SELECT * from mydb.diarioemociones WHERE usuarios_idusuario = '${id}' ORDER BY fecha`;
-        console.log(query);
+        const query = `SELECT * from mydb.diarioemociones WHERE usuarios_idusuario = '${id}'`;
         
         const result = Model.execQuery(query);
+        console.log(result);
         return result;
     }
 

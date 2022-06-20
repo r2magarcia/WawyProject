@@ -11,9 +11,9 @@ const app = express();
 const {port} = require('./config');
 
 // const options:cors.CorsOptions ={
-//     methods: "GET, POST, PUT, DELETE", allowedHeaders: ["Pilots-key", "Teams-key"]
+//     methods: "GET, POST, PUT, DELETE", allowedHeaders: ["Wawy-key"]
 // };
-
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 

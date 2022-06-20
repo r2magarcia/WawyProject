@@ -35,6 +35,12 @@ module NotToDoListService {
         return result;
     }
 
+    export function getByName(nombre: string){
+        const query = `SELECT idnot_to_do_list from mydb.not_to_do_list where nombre = '${nombre}'`;
+        const result = Model.execQuery(query);
+        return result;
+    }
+
 
 }
 
