@@ -11,9 +11,9 @@ const app = express();
 const {port} = require('./config');
 
 // const options:cors.CorsOptions ={
-//     methods: "GET, POST, PUT, DELETE", allowedHeaders: ["Pilots-key", "Teams-key"]
+//     methods: "GET, POST, PUT, DELETE", allowedHeaders: ["Wawy-key"]
 // };
-
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -30,12 +30,12 @@ app.route('/user')
 app.route('/note')
 .get(UserHasListService.getAllNotes)
 .post(UserHasListService.createNote);
-app.route('/note/byuser')
+app.route('/note/byuser/:email')
 .get(UserHasListService.getAllUserNotes);
 app.route('/diary')
 .get(DiaryController.getAllNotes)
 .post(DiaryController.createNote);
-app.route('/diary/sorted')
+app.route('/diary/sorted/:email')
 .get(DiaryController.getDiarySorted);
 
 app.listen(port, () => {

@@ -84,7 +84,7 @@ function getIdByEmail(req, res) {
             switch (_a.label) {
                 case 0:
                     console.log("get all Users controller");
-                    email = req.body.email;
+                    email = req.params.email;
                     return [4 /*yield*/, UserService_1.default.getIdByEmail(email)];
                 case 1:
                     users = _a.sent();

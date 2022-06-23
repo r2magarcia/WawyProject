@@ -24,6 +24,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var express_1 = __importDefault(require("express"));
 var body_parser_1 = __importDefault(require("body-parser"));
+var cors_1 = __importDefault(require("cors"));
 var wawycontroller = __importStar(require("./controllers/wawycontroller"));
 var NotToDoListController = __importStar(require("./controllers/NotToDoListController"));
 var UserController = __importStar(require("./controllers/UserController"));
@@ -32,8 +33,9 @@ var DiaryController = __importStar(require("./controllers/DairyController"));
 var app = express_1.default();
 var port = require('./config').port;
 // const options:cors.CorsOptions ={
-//     methods: "GET, POST, PUT, DELETE", allowedHeaders: ["Pilots-key", "Teams-key"]
+//     methods: "GET, POST, PUT, DELETE", allowedHeaders: ["Wawy-key"]
 // };
+app.use(cors_1.default());
 app.use(body_parser_1.default.json());
 app.use(body_parser_1.default.urlencoded({ extended: true }));
 app.route('/wawy')
@@ -49,12 +51,12 @@ app.route('/user')
 app.route('/note')
     .get(UserHasListService.getAllNotes)
     .post(UserHasListService.createNote);
-app.route('/note/byuser')
+app.route('/note/byuser/:email')
     .get(UserHasListService.getAllUserNotes);
 app.route('/diary')
     .get(DiaryController.getAllNotes)
     .post(DiaryController.createNote);
-app.route('/diary/sorted')
+app.route('/diary/sorted/:email')
     .get(DiaryController.getDiarySorted);
 app.listen(port, function () {
     console.log("Node JS Server started at port " + port);

@@ -29,8 +29,14 @@ module EstadosService {
         return result;
     }
     
-    export function getEstadorById(id: number){
+    export function getEstadoById(id: number){
         const query = `SELECT * from mydb.estados_emocionales where idemocion = '${id}'`;
+        const result = Model.execQuery(query);
+        return result;
+    }
+
+    export function getEstadoByNombre(texto: string){
+        const query = `SELECT idemocion from mydb.estados_emocionales WHERE texto = '${texto}'`;
         const result = Model.execQuery(query);
         return result;
     }
