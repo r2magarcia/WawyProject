@@ -1,3 +1,3 @@
 module.exports = {
-    url: 'http://localhost:3001',
+    url: 'https://02ca-190-66-121-126.ngrok.io',
 }

@@ -2,9 +2,10 @@ import React from "react";
 import { Component } from "react";
 import "./Activity.css";
 import { Card, ListGroup } from "react-bootstrap";
+const { url } = require("../../../config");
 
 interface props {
-  categories: Array<category>;
+  loggedUser: string;
 }
 
 interface state {
@@ -13,25 +14,38 @@ interface state {
 
 export interface category {
   title: string;
-  userInput: Array<string>;
+  content: Array<string>;
 }
 
 export default class Activity extends Component<props, state> {
   userCategories: any;
   constructor(props: props | Readonly<props>) {
     super(props);
-    this.state = { currentCategories: props.categories };
-
+    this.state = { currentCategories: [] };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.userCategories = props.categories;
+    this.userCategories = [];
   }
+  componentDidMount() {
+    const request = new Request(`${url}/note/byuser/${this.props.loggedUser}`, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+      },
+      //body: '{"email": "srt6221@gmail.com"}',
+    });
+    fetch(request).then((resp) => resp.json().then((body) =>{
+      this.setState({ currentCategories: body })
+      this.userCategories=body}))
+
+  }
+
   handleChange(
     event: any,
     indexCategory: React.Key,
     indexInput: React.Key
   ) {
-    this.userCategories[indexCategory].userInput[indexInput] =
+    this.userCategories[indexCategory].content[indexInput] =
       event.target.value;
     this.setState({ currentCategories: this.userCategories });
     console.log(this.state.currentCategories);
@@ -45,7 +59,7 @@ export default class Activity extends Component<props, state> {
   onClickPlus(event: any, indexCategory: React.Key) {
     event.preventDefault()
     let currentCategory: category = this.userCategories[indexCategory]
-    currentCategory.userInput.push("");
+    currentCategory.content.push("");
     console.log(this.userCategories)
     
     this.setState({ currentCategories: this.userCategories });
@@ -62,8 +76,8 @@ export default class Activity extends Component<props, state> {
                   <Card.Title> <h5>{item.title}</h5> </Card.Title>
                   <form action="">
                     <ListGroup variant="flush">
-                      {item.userInput.map(
-                        (userInput: string, indexInput: React.Key) => (
+                      {item.content.map(
+                        (content: string, indexInput: React.Key) => (
                           <ListGroup.Item key={indexInput}>
                             <p><span 
                               className="textarea" 
@@ -73,7 +87,7 @@ export default class Activity extends Component<props, state> {
                               }
                               suppressContentEditableWarning={true}
                               contentEditable>
-                                {userInput}
+                                {content}
                             </span></p>
                           </ListGroup.Item>
                         )

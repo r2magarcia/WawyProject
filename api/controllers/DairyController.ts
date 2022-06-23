@@ -14,60 +14,44 @@ export async function getAllNotes(req: Request, res: Response){
 }
 
 export async function createNote(req: Request, res: Response){
-    console.log(req.body);
-    const request = req.body;
-    let response : Array<Dairy> = [];
-    request.forEach(async(element:any) => {
-        const users: Array<User> = await UserService.getIdByEmail(element.email);
-        const user = users[0].idusuario || 0;
-        const emotions: Array<EstadoE> = await EstadosService.getEstadoByNombre(element.emocion);
-        const emotion = emotions[0].idemocion || 0;
-        const book: Dairy = new Dairy(element.fecha, emotion, user);
-        response.push(await DiaryService.insertDiary(book.fecha, book.estados_emocionales_idemocion, book.usuarios_idusuario));
-    });
+    const book: Dairy= new Dairy(req.body.fecha, req.body.idEmocion, req.body.email);
+    const response : Dairy = await DiaryService.insertDiary(book.fecha, book.estados_emocionales_idemocion,  req.body.email);
     res.status(201).json(response);
 }
 
+
+//TODO: hacer esto menos feo
 export async function getDiarySorted(req: Request, res: Response){
     console.log("get all book controller sorted");
     const line:string = req.params.email;
     const users: Array<User> = await UserService.getIdByEmail(line)
     console.log(users);
     let user:number;
+    let book: Array<Dairy>;
     try {
         user = users[0].idusuario || 0;
-    } catch (error) {
-        throw new Error("Bad request");
-    }
-    let book: Array<Dairy>;
-    const status:Array<EstadoE> = await EstadosService.getAllEstados();
-    try {
-        
         book = await DiaryService.getDiarySorted(user);
-        console.log(book);
     } catch (error) {
-        throw new Error("Bad request");
+        //throw new Error("Bad request");
+        console.log("something failed");
+        
     }
-    
+   
+    const status:Array<EstadoE> = await EstadosService.getAllEstados();
 
     let response: Array<any> = [];
 
-    book.map((e)=>{
+    status.map((e)=>{
 
         response.push({
-            fecha:e.fecha,
-            emotion: status.filter(el=>{
+            date: book.filter(el=>{
 
-                if(el.idemocion==e.estados_emocionales_idemocion){
-                    return el.texto;
+                if(el.estados_emocionales_idemocion==e.idemocion){
+                    return el.fecha;
                 }
-            })[0].texto,
-            color:status.filter(el=>{
-
-                if(el.idemocion==e.estados_emocionales_idemocion){
-                    return el.color;
-                }
-            })[0].color,
+            }).map(e=>e.fecha)[0],
+            emotion:e.texto,
+            color:e.color
         })
     })
     // console.log(book);

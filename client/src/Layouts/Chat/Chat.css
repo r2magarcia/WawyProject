@@ -11,7 +11,7 @@
   position: fixed;
   bottom: 23px;
   right: 28px;
-  width: 280px;
+  width: 50px;
 }
 
 .chat-popup{
@@ -25,7 +25,7 @@
   bottom: 0;
   right: 15px;
   border: 3px solid #f1f1f1;
-  z-index: 9;
+  z-index: 10;
 }
 
 /* Add styles to the form container */
@@ -73,7 +73,7 @@
 .form-container .btn:hover, .open-button:hover {
   opacity: 1;
 }
-@media (max-width: 600px) {
+@media (max-width: 800px) {
   .chat-popup{
     position: fixed;
     bottom: 80px;

@@ -1,45 +1,47 @@
 import Pilot from '../models/DiaryModel';
 import Model from '../models/model';
 
-const { db } = require('../config');
+const { database } = require('../config');
 
 module DiaryService {
 
-    export function insertDiary(fecha:Date, idUser:number, idEmocion:number){
-        const query = `INSERT INTO mydb.diarioemociones (id_diario, fecha, usuarios_idusuario, estados_emocionales_idmocion) VALUES (NULL, '${fecha}', '${idUser}', '${idEmocion}')`;
+    export function insertDiary(fecha:Date, idEmocion:number, email:string){
+        const query = `INSERT INTO ${database}.diarioemociones (id, fecha, idUsuario, idEmocion) VALUES (NULL, '${fecha}', (SELECT idusuario FROM ${database}.usuarios WHERE email='${email}' LIMIT 1), '${idEmocion}')`;
         const result = Model.execQuery(query);
+        console.log(email);
+        
         return result;
     }
 
     export function deleteDiary(id:number){
-        const query = `DELETE FROM mydb.diarioemociones WHERE id_diario = '${id}'`;
+        const query = `DELETE FROM ${database}.diarioemociones WHERE id = '${id}'`;
         const result = Model.execQuery(query);
         return result;
     }
 
     export function updateDiary(id:number, fecha:Date){
-        const query = `UPDATE mydb.diarioemociones SET fecha = '${fecha}' WHERE id_diario = '${id}'`;
+        const query = `UPDATE ${database}.diarioemociones SET fecha = '${fecha}' WHERE id = '${id}'`;
         const result = Model.execQuery(query);
         return result;
     }
 
     export function getAllDiarys(){
-        const query = `SELECT * from mydb.diarioemociones`;
+        const query = `SELECT * from ${database}.diarioemociones`;
         const result = Model.execQuery(query);
         return result;
     }
     
     export function getDiaryrById(id: number){
-        const query = `SELECT * from mydb.diarioemociones where id_diario = '${id}'`;
+        const query = `SELECT * from ${database}.diarioemociones where id = '${id}'`;
         const result = Model.execQuery(query);
         return result;
     }
 
     export function getDiarySorted(id:number){
-        const query = `SELECT * from mydb.diarioemociones WHERE usuarios_idusuario = '${id}'`;
+        const query = `SELECT * from ${database}.diarioemociones WHERE idUsuario = '${id}' ORDER BY fecha`;
+        console.log(query);
         
         const result = Model.execQuery(query);
-        console.log(result);
         return result;
     }
 

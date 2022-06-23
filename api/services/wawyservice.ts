@@ -1,12 +1,12 @@
 import Pilot from '../models/wawymodule';
 import Model from '../models/model';
 
-const { db } = require('../config');
+const { database } = require('../config');
 
 module wawyservice {
 
     export function getAllPilots(){
-        const query = 'SELECT * FROM mydb.estados_emocionales';
+        const query = 'SELECT * FROM ${database}.estados_emocionales';
         const result = Model.execQuery(query);
         return result;
     }
@@ -47,7 +47,7 @@ module wawyservice {
     }*/
 
     export function getById(id: number){
-        const query = `SELECT * from mydb.estados_emocionales where idemocion = ${id}`;
+        const query = `SELECT * from ${database}.estados_emocionales where idemocion = ${id}`;
         const result = Model.execQuery(query);
         return result;
     }

@@ -4,16 +4,17 @@ import cors from "cors";
 import * as wawycontroller from "./controllers/wawycontroller";
 import * as NotToDoListController from "./controllers/NotToDoListController";
 import * as UserController from "./controllers/UserController";
-import * as UserHasListService from "./controllers/User_NotToDoListController";
+import * as UserHasListController from "./controllers/User_NotToDoListController";
 import * as DiaryController from "./controllers/DairyController";
+import * as EstadoEController from "./controllers/EstadosEController";
 
 const app = express();
 const {port} = require('./config');
 
 // const options:cors.CorsOptions ={
-//     methods: "GET, POST, PUT, DELETE", allowedHeaders: ["Wawy-key"]
+//     methods: "GET, POST, PUT, DELETE", allowedHeaders: ["Pilots-key", "Teams-key"]
 // };
-app.use(cors());
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -28,16 +29,19 @@ app.route('/user')
 // app.route('/user/byid')
 // .get(UserController.getIdByEmail);
 app.route('/note')
-.get(UserHasListService.getAllNotes)
-.post(UserHasListService.createNote);
+.get(UserHasListController.getAllNotes)
+.post(UserHasListController.createNote);
 app.route('/note/byuser/:email')
-.get(UserHasListService.getAllUserNotes);
+.get(NotToDoListController.getAllUserNotes);
 app.route('/diary')
 .get(DiaryController.getAllNotes)
 .post(DiaryController.createNote);
 app.route('/diary/sorted/:email')
 .get(DiaryController.getDiarySorted);
 
+app.route('/emotion')
+.get(EstadoEController.getAllEstados)
+ 
 app.listen(port, () => {
     console.log(`Node JS Server started at port ${port}`);
 });
