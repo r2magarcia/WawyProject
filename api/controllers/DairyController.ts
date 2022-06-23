@@ -14,9 +14,8 @@ export async function getAllNotes(req: Request, res: Response){
 }
 
 export async function createNote(req: Request, res: Response){
-    console.log(req.body);
-    const book: Dairy= new Dairy(req.body.fecha, req.body.estados_emocionales_idmocion, req.body.usuarios_idusuario);
-    const response : Dairy = await DiaryService.insertDiary(book.fecha, book.estados_emocionales_idemocion, book.usuarios_idusuario);
+    const book: Dairy= new Dairy(req.body.fecha, req.body.idEmocion, req.body.email);
+    const response : Dairy = await DiaryService.insertDiary(book.fecha, book.estados_emocionales_idemocion,  req.body.email);
     res.status(201).json(response);
 }
 

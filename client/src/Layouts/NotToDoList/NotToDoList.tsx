@@ -35,7 +35,7 @@ export default class NotToDoList extends Component<props, state> {
             Hey. sabías que La <strong>not-to-do list</strong> nos sirve para identificar las cosas que nos estresan, que nos hacen perder el tiempo o nos desaniman. 
             </p>
           </div>
-          <Activity loggedUser="srt6221@gmail.com"></Activity>
+          <Activity loggedUser={this.props.loggedUser}></Activity>
         </div>
       </>
     );

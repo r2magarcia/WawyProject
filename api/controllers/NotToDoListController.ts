@@ -44,10 +44,6 @@ export async function getAllUserNotes(req: Request, res: Response){
             {
                 title: e.nombre,
                 content: noteResponse.filter(el=>{
-                    console.log("user content input");
-                    
-                    console.log(el);
-                    
                     if(el.id==e.idnot_to_do_list){
                         return el.nombre
                     }

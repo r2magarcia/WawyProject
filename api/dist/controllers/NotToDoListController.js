@@ -111,8 +111,6 @@ function getAllUserNotes(req, res) {
                         response.push({
                             title: e.nombre,
                             content: noteResponse.filter(function (el) {
-                                console.log("user content input");
-                                console.log(el);
                                 if (el.id == e.idnot_to_do_list) {
                                     return el.nombre;
                                 }

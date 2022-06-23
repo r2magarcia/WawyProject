@@ -41,41 +41,13 @@ interface state {
 
 export default class DiarioEmociones extends Component<props, state> {
   events: calendarEvent;
+  currentEmotion: number;
 
   constructor(props: props | Readonly<props>) {
     super(props);
     this.state = {
       records: [],
-      estadosEmocionales: [
-        {
-          title: "Me sentí feliz",
-          color: "#0DF205",
-        },
-        {
-          title: "Me sentí tranquilo o tranquila",
-          color: "#EE05F2",
-        },
-        {
-          title: "Me sentí enojado o enojada ",
-          color: "#F20505",
-        },
-        {
-          title: "Me senti aburrido o aburrida",
-          color: "#F2E205",
-        },
-        {
-          title: "Me sentí con bajones emocionales",
-          color: "#05F2DB",
-        },
-        {
-          title: "Me sentí inseguro o insegura",
-          color: "#B7B7B7",
-        },
-        {
-          title: "Me senti con desaliento",
-          color: "#000000",
-        },
-      ],
+      estadosEmocionales: [],
     };
   }
 
@@ -113,13 +85,13 @@ export default class DiarioEmociones extends Component<props, state> {
       headers: {
         Accept: "application/json",
       },
-      //body: '{"email": "srt6221@gmail.com"}',
     });
     fetch(requestEstados).then((resp) =>
       resp.json().then((body) => {
         let estados = body.map((e: any) => {
           return {
-            title: e.nombre,
+            value: e.id,
+            label: e.nombre,
             color: e.color,
           };
         });
@@ -130,21 +102,30 @@ export default class DiarioEmociones extends Component<props, state> {
     );
   }
 
-  submitInput() {
-    const request = new Request(
-      `${url}/diary/sorted/${this.props.loggedUser}`,
-      {
-        method: "GET",
-        headers: {
-          Accept: "application/json",
-        },
-        //body: '{"email": "srt6221@gmail.com"}',
-      }
-    );
+  handleChange(event: any) {
+    this.currentEmotion = event.target.value || 0;
+  }
+
+  handleSubmit(event: { preventDefault: () => void }) {
+    let data = {
+      fecha: new Date(),
+      idEmocion: this.currentEmotion,
+      email: this.props.loggedUser,
+    };
+    this.submitToDatabase(data);
+    event.preventDefault();
+  }
+  submitToDatabase(data: any) {
+    const request = new Request(`${url}/diary`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
     fetch(request).then((resp) =>
       resp.json().then((body) => {
-        this.setState({ records: body });
-
         this.events = body.map((e: any) => {
           return {
             title: "",
@@ -174,22 +155,19 @@ export default class DiarioEmociones extends Component<props, state> {
             darnos cuenta de ellas.
           </p>
 
-          <Card style={{ width: "18rem" }}>
+          <Card style={{ width: "26rem" }}>
             <Card.Body>
               <Card.Title> ¿Cómo te sentiste hoy? </Card.Title>
               <div className="form-emotion">
                 <form action="">
-                  <select name="emotion" id="emotion">
-                    <option>Me sentí feliz </option>
-                    <option>Me sentí tranquilo o tranquila </option>
-                    <option>Me sentí enojado o enojada </option>
-                    <option>Me senti aburrido o aburrida </option>
-                    <option>Me sentí con bajones emocionales </option>
-                    <option>Me sentí inseguro o insegura </option>
-                    <option>Me sentí enojado o enojada </option>
-                    <option>Me senti con desaliento </option>
+                  <select onChange={(e) => this.handleChange(e)}>
+                    {this.state.estadosEmocionales.map((option) => (
+                      <option value={option.value}>{option.label}</option>
+                    ))}
                   </select>
-                  <button onClick={this.submitInput}>Ingresar</button>
+                  <button onClick={(e) => this.handleSubmit(e)}>
+                    Ingresar
+                  </button>
                 </form>
               </div>
             </Card.Body>
@@ -216,7 +194,7 @@ export default class DiarioEmociones extends Component<props, state> {
                   <ListGroup.Item
                     style={{ backgroundColor: estado.color + 70 }}
                   >
-                    {estado.title}
+                    {estado.label}
                   </ListGroup.Item>
                 ))}
               </ListGroup>

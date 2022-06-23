@@ -5,9 +5,11 @@ const { database } = require('../config');
 
 module DiaryService {
 
-    export function insertDiary(fecha:Date, idUser:number, idEmocion:number){
-        const query = `INSERT INTO ${database}.diarioemociones (id, fecha, idUsuario, idEmocion) VALUES (NULL, '${fecha}', '${idUser}', '${idEmocion}')`;
+    export function insertDiary(fecha:Date, idEmocion:number, email:string){
+        const query = `INSERT INTO ${database}.diarioemociones (id, fecha, idUsuario, idEmocion) VALUES (NULL, '${fecha}', (SELECT idusuario FROM ${database}.usuarios WHERE email='${email}' LIMIT 1), '${idEmocion}')`;
         const result = Model.execQuery(query);
+        console.log(email);
+        
         return result;
     }
 
