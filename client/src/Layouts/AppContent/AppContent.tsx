@@ -19,7 +19,7 @@ export default class AppContent extends Component {
                 <Routes>
                   <Route
                     path="/not-to-do-list"
-                    element={<NotToDoList loggedUser="srt6221@gmail.com"/>}
+                    element={<NotToDoList loggedUser="test@email.com"/>}
                   ></Route>
                   <Route
                     path="/"
@@ -27,7 +27,7 @@ export default class AppContent extends Component {
                   ></Route>
                   <Route
                     path="/diario-de-emociones"
-                    element={<DiarioEmociones loggedUser="srt6221@gmail.com"/>}
+                    element={<DiarioEmociones loggedUser="test@email.com"/>}
                   ></Route>
                 </Routes>
               </BrowserRouter>

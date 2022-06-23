@@ -20,25 +20,25 @@ export async function createNote(req: Request, res: Response){
     res.status(201).json(response);
 }
 
+
+//TODO: hacer esto menos feo
 export async function getDiarySorted(req: Request, res: Response){
     console.log("get all book controller sorted");
     const line:string = req.params.email;
     const users: Array<User> = await UserService.getIdByEmail(line)
     console.log(users);
     let user:number;
+    let book: Array<Dairy>;
     try {
         user = users[0].idusuario || 0;
-    } catch (error) {
-        throw new Error("Bad request");
-    }
-    let book: Array<Dairy>;
-    const status:Array<EstadoE> = await EstadosService.getAllEstados();
-    try {
         book = await DiaryService.getDiarySorted(user);
     } catch (error) {
-        throw new Error("Bad request");
+        //throw new Error("Bad request");
+        console.log("something failed");
+        
     }
-    
+   
+    const status:Array<EstadoE> = await EstadosService.getAllEstados();
 
     let response: Array<any> = [];
 

@@ -41,7 +41,7 @@ app.route('/diary/sorted/:email')
 
 app.route('/emotion')
 .get(EstadoEController.getAllEstados)
-
+ 
 app.listen(port, () => {
     console.log(`Node JS Server started at port ${port}`);
 });
