@@ -7,12 +7,18 @@ import User from "../models/UserModel";
 import User_NotToDoList from "../models/User_NotToDoListModel";
 
 export async function getAllNotes(req: Request, res: Response){
-    const notes: Array<NotToDoList>=await listService.getAllNotes();
-    res.status(201).json(notes);
+    
+    try {
+        const notes: Array<NotToDoList> = await listService.getAllNotes();
+        res.status(201).json(notes);
+        console.log(notes);
+    } catch (error) {
+        console.log(error);
+        res.status(400).json({error: "Algo salio mal"});
+    }
 }
 
 export async function createNote(req: Request, res: Response){
-    console.log(req.body);
     try {
         const _ = await listService.insertNote(req.body.contenido, req.body.categoria, req.body.nombre);
         res.status(201).json();

@@ -45,14 +45,23 @@ var User_NotToDoListService_1 = __importDefault(require("../services/User_NotToD
 var UserService_1 = __importDefault(require("../services/UserService"));
 function getAllNotes(req, res) {
     return __awaiter(this, void 0, void 0, function () {
-        var notes;
+        var notes, error_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, NotToDoListService_1.default.getAllNotes()];
+                case 0:
+                    _a.trys.push([0, 2, , 3]);
+                    return [4 /*yield*/, NotToDoListService_1.default.getAllNotes()];
                 case 1:
                     notes = _a.sent();
                     res.status(201).json(notes);
-                    return [2 /*return*/];
+                    console.log(notes);
+                    return [3 /*break*/, 3];
+                case 2:
+                    error_1 = _a.sent();
+                    console.log(error_1);
+                    res.status(400).json({ error: "Algo salio mal" });
+                    return [3 /*break*/, 3];
+                case 3: return [2 /*return*/];
             }
         });
     });
@@ -60,25 +69,22 @@ function getAllNotes(req, res) {
 exports.getAllNotes = getAllNotes;
 function createNote(req, res) {
     return __awaiter(this, void 0, void 0, function () {
-        var _, error_1;
+        var _, error_2;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    console.log(req.body);
-                    _a.label = 1;
-                case 1:
-                    _a.trys.push([1, 3, , 4]);
+                    _a.trys.push([0, 2, , 3]);
                     return [4 /*yield*/, NotToDoListService_1.default.insertNote(req.body.contenido, req.body.categoria, req.body.nombre)];
-                case 2:
+                case 1:
                     _ = _a.sent();
                     res.status(201).json();
-                    return [3 /*break*/, 4];
-                case 3:
-                    error_1 = _a.sent();
-                    console.log(error_1);
+                    return [3 /*break*/, 3];
+                case 2:
+                    error_2 = _a.sent();
+                    console.log(error_2);
                     res.status(400).json({ error: "Algo salio mal" });
-                    return [3 /*break*/, 4];
-                case 4: return [2 /*return*/];
+                    return [3 /*break*/, 3];
+                case 3: return [2 /*return*/];
             }
         });
     });

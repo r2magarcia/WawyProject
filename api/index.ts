@@ -11,36 +11,54 @@ import * as EstadoEController from "./controllers/EstadosEController";
 const app = express();
 const {port} = require('./config');
 
+// TODO: Organizar las rutas para admin y requerir una key para acceder a los datos
+
 // const options:cors.CorsOptions ={
 //     methods: "GET, POST, PUT, DELETE", allowedHeaders: ["Pilots-key", "Teams-key"]
 // };
-
+app.use(cors())
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.route('/wawy')
-.get(wawycontroller.getAllPilots);
-app.route('/nottodolist')
-.get(NotToDoListController.getAllNotes)
-.post(NotToDoListController.createNote);
+/**
+ * Only the Not to do list categories
+ */
+app.route('/ntdlcategories')
+    .get(NotToDoListController.getAllNotes)
+    //create a categorie for the Not to Do List
+    .post(NotToDoListController.createNote);
+
 app.route('/user')
-.get(UserController.getAllUsers)
-.post(UserController.createUser);
-// app.route('/user/byid')
-// .get(UserController.getIdByEmail);
+    .get(UserController.getAllUsers)
+    .post(UserController.createUser);
+
+/**
+ * Not to do list for each user
+ */
 app.route('/note')
-.get(UserHasListController.getAllNotes)
-.post(UserHasListController.createNote);
+    .get(UserHasListController.getAllNotes)
+    .post(UserHasListController.createNote);
+
+/**
+ * Not to do list for an speceific user given an email
+ */
 app.route('/note/byuser/:email')
-.get(NotToDoListController.getAllUserNotes);
+    .get(NotToDoListController.getAllUserNotes)
+    .post(NotToDoListController.createNote);
+
 app.route('/diary')
-.get(DiaryController.getAllNotes)
-.post(DiaryController.createNote);
+    .post(DiaryController.createNote)
 app.route('/diary/sorted/:email')
-.get(DiaryController.getDiarySorted);
+    .get(DiaryController.getDiarySorted);
 
 app.route('/emotion')
 .get(EstadoEController.getAllEstados)
+
+// app.route('/diary')
+// .get(DiaryController.getAllNotes)
+// .post(DiaryController.createNote);
+// app.route('/user/byid')
+// .get(UserController.getIdByEmail);
  
 app.listen(port, () => {
     console.log(`Node JS Server started at port ${port}`);

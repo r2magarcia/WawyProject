@@ -8,31 +8,31 @@ var database = require('../config').database;
 var NotToDoListService;
 (function (NotToDoListService) {
     function insertNote(contenido, categoria, userEmail) {
-        var query = "INSERT INTO " + database + ".nottodolist (id, contenido, idCategoria, idUsuario) VALUES (NULL, '" + contenido + "', " + categoria + ", (SELECT idusuario FROM " + database + ".usuarios WHERE email='" + userEmail + "' LIMIT 1))";
+        var query = "INSERT INTO " + database + ".categoriantdl (id, contenido, idCategoria, idUsuario) VALUES (NULL, '" + contenido + "', " + categoria + ", (SELECT idusuario FROM " + database + ".usuarios WHERE email='" + userEmail + "' LIMIT 1))";
         var result = model_1.default.execQuery(query);
         return result;
     }
     NotToDoListService.insertNote = insertNote;
     function deleteNote(id) {
-        var query = "DELETE FROM " + database + ".nottodolist WHERE id = '" + id + "'";
+        var query = "DELETE FROM " + database + ".categoriantdl WHERE id = '" + id + "'";
         var result = model_1.default.execQuery(query);
         return result;
     }
     NotToDoListService.deleteNote = deleteNote;
     function updateNote(id, nombre) {
-        var query = "UPDATE " + database + ".nottodolist SET nombre = '" + nombre + "' WHERE id = '" + id + "'";
+        var query = "UPDATE " + database + ".categoriantdl SET nombre = '" + nombre + "' WHERE id = '" + id + "'";
         var result = model_1.default.execQuery(query);
         return result;
     }
     NotToDoListService.updateNote = updateNote;
     function getAllNotes() {
-        var query = "SELECT * from " + database + ".nottodolist";
+        var query = "SELECT * from " + database + ".categoriantdl";
         var result = model_1.default.execQuery(query);
         return result;
     }
     NotToDoListService.getAllNotes = getAllNotes;
     function getById(id) {
-        var query = "SELECT * from " + database + ".nottodolist where id = '" + id + "'";
+        var query = "SELECT * from " + database + ".categoriantdl where id = '" + id + "'";
         var result = model_1.default.execQuery(query);
         return result;
     }

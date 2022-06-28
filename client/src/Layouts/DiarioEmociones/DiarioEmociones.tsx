@@ -161,8 +161,8 @@ export default class DiarioEmociones extends Component<props, state> {
               <div className="form-emotion">
                 <form action="">
                   <select onChange={(e) => this.handleChange(e)}>
-                    {this.state.estadosEmocionales.map((option) => (
-                      <option value={option.value}>{option.label}</option>
+                    {this.state.estadosEmocionales.map((option, idx) => (
+                      <option  key={idx} value={option.value}>{option.label}</option>
                     ))}
                   </select>
                   <button onClick={(e) => this.handleSubmit(e)}>
@@ -190,8 +190,8 @@ export default class DiarioEmociones extends Component<props, state> {
                 Te voy a explicar el significado de los colores:{" "}
               </Card.Title>
               <ListGroup>
-                {this.state.estadosEmocionales.map((estado) => (
-                  <ListGroup.Item
+                {this.state.estadosEmocionales.map((estado, idx) => (
+                  <ListGroup.Item key={idx}
                     style={{ backgroundColor: estado.color + 70 }}
                   >
                     {estado.label}

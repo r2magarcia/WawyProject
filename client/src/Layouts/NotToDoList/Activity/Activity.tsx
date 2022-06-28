@@ -32,21 +32,27 @@ export default class Activity extends Component<props, state> {
       headers: {
         Accept: "application/json",
       },
-      //body: '{"email": "srt6221@gmail.com"}',
     });
-    fetch(request).then((resp) => resp.json().then((body) =>{
-      this.setState({ currentCategories: body })
-      this.userCategories=body}))
+    // fetch(request).then((resp) => resp.json().then((body) =>{
+    //   this.setState({ currentCategories: body })
+    //   this.userCategories=body}))
 
+    const requestCategories = new Request(`${url}/ntdlcategories}`, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+      },
+    });
+    fetch(requestCategories).then((resp) =>
+      resp.json().then((body) => {
+        this.setState({ currentCategories: body });
+        this.userCategories = body;
+      })
+    );
   }
 
-  handleChange(
-    event: any,
-    indexCategory: React.Key,
-    indexInput: React.Key
-  ) {
-    this.userCategories[indexCategory].content[indexInput] =
-      event.target.value;
+  handleChange(event: any, indexCategory: React.Key, indexInput: React.Key) {
+    this.userCategories[indexCategory].content[indexInput] = event.target.value;
     this.setState({ currentCategories: this.userCategories });
     console.log(this.state.currentCategories);
   }
@@ -57,11 +63,11 @@ export default class Activity extends Component<props, state> {
   }
 
   onClickPlus(event: any, indexCategory: React.Key) {
-    event.preventDefault()
-    let currentCategory: category = this.userCategories[indexCategory]
+    event.preventDefault();
+    let currentCategory: category = this.userCategories[indexCategory];
     currentCategory.content.push("");
-    console.log(this.userCategories)
-    
+    console.log(this.userCategories);
+
     this.setState({ currentCategories: this.userCategories });
   }
 
@@ -73,22 +79,32 @@ export default class Activity extends Component<props, state> {
             (item: category, indexCategory: React.Key) => (
               <Card key={indexCategory} className="card-container">
                 <Card.Body>
-                  <Card.Title> <h5>{item.title}</h5> </Card.Title>
+                  <Card.Title>
+                    {" "}
+                    <h5>{item.title}</h5>{" "}
+                  </Card.Title>
                   <form action="">
                     <ListGroup variant="flush">
                       {item.content.map(
                         (content: string, indexInput: React.Key) => (
                           <ListGroup.Item key={indexInput}>
-                            <p><span 
-                              className="textarea" 
-                              role="textbox" 
-                              onChange={(e) =>
-                                this.handleChange(e, indexCategory, indexInput)
-                              }
-                              suppressContentEditableWarning={true}
-                              contentEditable>
+                            <p>
+                              <span
+                                className="textarea"
+                                role="textbox"
+                                onChange={(e) =>
+                                  this.handleChange(
+                                    e,
+                                    indexCategory,
+                                    indexInput
+                                  )
+                                }
+                                suppressContentEditableWarning={true}
+                                contentEditable
+                              >
                                 {content}
-                            </span></p>
+                              </span>
+                            </p>
                           </ListGroup.Item>
                         )
                       )}

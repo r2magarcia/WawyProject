@@ -28,6 +28,12 @@ module EstadosService {
         const result = Model.execQuery(query);
         return result;
     }
+
+    export function getAllEstadosByUser(){
+        const query = `SELECT * from ${database}.emociones`;
+        const result = Model.execQuery(query);
+        return result;
+    }
     
     export function getEstadorById(id: number){
         const query = `SELECT * from ${database}.emociones where id = '${id}'`;
