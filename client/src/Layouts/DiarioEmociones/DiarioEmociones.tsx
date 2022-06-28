@@ -3,14 +3,7 @@ import { Component } from "react";
 import "./DiarioEmociones.css";
 import FullCalendar from "@fullcalendar/react"; // must go before plugins
 import dayGridPlugin from "@fullcalendar/daygrid"; // a plugin!
-import {
-  Button,
-  Card,
-  Container,
-  Dropdown,
-  DropdownButton,
-  ListGroup,
-} from "react-bootstrap";
+import { Card, ListGroup } from "react-bootstrap";
 const { url } = require("../../config");
 
 interface InputWrapperProps {
@@ -162,7 +155,9 @@ export default class DiarioEmociones extends Component<props, state> {
                 <form action="">
                   <select onChange={(e) => this.handleChange(e)}>
                     {this.state.estadosEmocionales.map((option, idx) => (
-                      <option  key={idx} value={option.value}>{option.label}</option>
+                      <option key={idx} value={option.value}>
+                        {option.label}
+                      </option>
                     ))}
                   </select>
                   <button onClick={(e) => this.handleSubmit(e)}>
@@ -191,7 +186,8 @@ export default class DiarioEmociones extends Component<props, state> {
               </Card.Title>
               <ListGroup>
                 {this.state.estadosEmocionales.map((estado, idx) => (
-                  <ListGroup.Item key={idx}
+                  <ListGroup.Item
+                    key={idx}
                     style={{ backgroundColor: estado.color + 70 }}
                   >
                     {estado.label}

@@ -27,28 +27,39 @@ export default class Activity extends Component<props, state> {
     this.userCategories = [];
   }
   componentDidMount() {
+
+    const requestEstados = new Request(`${url}/ntdlcategories`, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+      },
+    });
+    fetch(requestEstados).then((resp) =>
+      resp.json().then((body) => {
+        console.log(body);
+        
+        let categoria = body.map((e: any) => {
+          return {
+            id: e.id,
+            title: e.nombre,
+            content: [''],
+          };
+
+          
+        });
+        this.setState({ currentCategories: categoria });
+        this.userCategories = this.state.currentCategories;
+      })
+    );
     const request = new Request(`${url}/note/byuser/${this.props.loggedUser}`, {
       method: "GET",
       headers: {
         Accept: "application/json",
       },
     });
-    // fetch(request).then((resp) => resp.json().then((body) =>{
-    //   this.setState({ currentCategories: body })
-    //   this.userCategories=body}))
-
-    const requestCategories = new Request(`${url}/ntdlcategories}`, {
-      method: "GET",
-      headers: {
-        Accept: "application/json",
-      },
-    });
-    fetch(requestCategories).then((resp) =>
-      resp.json().then((body) => {
-        this.setState({ currentCategories: body });
-        this.userCategories = body;
-      })
-    );
+    fetch(request).then((resp) => resp.json().then((body) =>{
+      this.setState({ currentCategories: body })
+      this.userCategories=body}));
   }
 
   handleChange(event: any, indexCategory: React.Key, indexInput: React.Key) {
