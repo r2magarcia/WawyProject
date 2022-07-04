@@ -13,6 +13,15 @@ module DiaryService {
         return result;
     }
 
+    export function getDiarySortedByEmail(email: string){
+        const query = `SELECT diarioemociones.fecha, emociones.nombre, emociones.color from ${database}.diarioemociones INNER JOIN ${database}.emociones ON diarioemociones.idEmocion=emociones.id WHERE idUsuario = (SELECT idusuario FROM ${database}.usuarios WHERE email='${email}' LIMIT 1) ORDER BY diarioemociones.fecha `;
+        console.log(query);
+        
+        
+        const result = Model.execQuery(query);
+        return result;
+    }
+
     export function deleteDiary(id:number){
         const query = `DELETE FROM ${database}.diarioemociones WHERE id = '${id}'`;
         const result = Model.execQuery(query);

@@ -2,6 +2,7 @@ import React from "react";
 import { Component } from "react";
 import "./Activity.css";
 import { Card, ListGroup } from "react-bootstrap";
+import { request } from "https";
 const { url } = require("../../../config");
 
 interface props {
@@ -27,26 +28,32 @@ export default class Activity extends Component<props, state> {
     this.userCategories = [];
   }
   componentDidMount() {
-    const request = new Request(`${url}/note/byuser/${this.props.loggedUser}`, {
+    const content = new Request(`${url}/note/byuser/${this.props.loggedUser}`, {
       method: "GET",
       headers: {
         Accept: "application/json",
       },
-      //body: '{"email": "srt6221@gmail.com"}',
     });
-    fetch(request).then((resp) => resp.json().then((body) =>{
-      this.setState({ currentCategories: body })
-      this.userCategories=body}))
+    fetch(content).then((resp) =>
+      resp.json().then((body) => {
+        let categorias = body.map((e: any) => {
+          return {
+            id: e.id,
+            title: e.title,
+            content: e.contenido,
+          };
+        });
+        console.log(categorias);
 
+        this.setState({ currentCategories: categorias });
+        this.userCategories = categorias;
+      })
+    );
+    
   }
 
-  handleChange(
-    event: any,
-    indexCategory: React.Key,
-    indexInput: React.Key
-  ) {
-    this.userCategories[indexCategory].content[indexInput] =
-      event.target.value;
+  handleChange(event: any, indexCategory: React.Key, indexInput: React.Key) {
+    this.userCategories[indexCategory].content[indexInput] = event.target.value;
     this.setState({ currentCategories: this.userCategories });
     console.log(this.state.currentCategories);
   }
@@ -57,14 +64,13 @@ export default class Activity extends Component<props, state> {
   }
 
   onClickPlus(event: any, indexCategory: React.Key) {
-    event.preventDefault()
-    let currentCategory: category = this.userCategories[indexCategory]
+    event.preventDefault();
+    let currentCategory: category = this.userCategories[indexCategory];
     currentCategory.content.push("");
-    console.log(this.userCategories)
-    
+    console.log(this.userCategories);
+
     this.setState({ currentCategories: this.userCategories });
   }
-
   render() {
     return (
       <>
@@ -73,32 +79,45 @@ export default class Activity extends Component<props, state> {
             (item: category, indexCategory: React.Key) => (
               <Card key={indexCategory} className="card-container">
                 <Card.Body>
-                  <Card.Title> <h5>{item.title}</h5> </Card.Title>
+                  <Card.Title>
+                    <h5>{item.title}</h5>
+                  </Card.Title>
                   <form action="">
-                    <ListGroup variant="flush">
+                    <ListGroup variant="flush"> 
+            
+                    {/* <p><>{item.title} </></p>  */}
+                    <>
                       {item.content.map(
                         (content: string, indexInput: React.Key) => (
                           <ListGroup.Item key={indexInput}>
-                            <p><span 
-                              className="textarea" 
-                              role="textbox" 
-                              onChange={(e) =>
-                                this.handleChange(e, indexCategory, indexInput)
-                              }
-                              suppressContentEditableWarning={true}
-                              contentEditable>
+                            <p>
+                              <span
+                                className="textarea"
+                                role="textbox"
+                                onChange={(e) =>
+                                  this.handleChange(
+                                    e,
+                                    indexCategory,
+                                    indexInput
+                                  )
+                                }
+                                suppressContentEditableWarning={true}
+                                contentEditable
+                              >
                                 {content}
-                            </span></p>
+                              </span>
+                            </p>
                           </ListGroup.Item>
                         )
                       )}
+                      </>
                       <button
                         className="plus-btn"
                         onClick={(e) => this.onClickPlus(e, indexCategory)}
                       >
                         +
                       </button>
-                    </ListGroup>
+                     </ListGroup>
                   </form>
                 </Card.Body>
               </Card>

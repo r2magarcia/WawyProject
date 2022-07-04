@@ -42,17 +42,25 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.getAllUserNotes = exports.createNote = exports.getAllNotes = void 0;
 var NotToDoListService_1 = __importDefault(require("../services/NotToDoListService"));
 var User_NotToDoListService_1 = __importDefault(require("../services/User_NotToDoListService"));
-var UserService_1 = __importDefault(require("../services/UserService"));
 function getAllNotes(req, res) {
     return __awaiter(this, void 0, void 0, function () {
-        var notes;
+        var notes, error_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, NotToDoListService_1.default.getAllNotes()];
+                case 0:
+                    _a.trys.push([0, 2, , 3]);
+                    return [4 /*yield*/, NotToDoListService_1.default.getAllNotes()];
                 case 1:
                     notes = _a.sent();
                     res.status(201).json(notes);
-                    return [2 /*return*/];
+                    console.log(notes);
+                    return [3 /*break*/, 3];
+                case 2:
+                    error_1 = _a.sent();
+                    console.log(error_1);
+                    res.status(400).json({ error: "Algo salio mal" });
+                    return [3 /*break*/, 3];
+                case 3: return [2 /*return*/];
             }
         });
     });
@@ -60,25 +68,22 @@ function getAllNotes(req, res) {
 exports.getAllNotes = getAllNotes;
 function createNote(req, res) {
     return __awaiter(this, void 0, void 0, function () {
-        var _, error_1;
+        var _, error_2;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    console.log(req.body);
-                    _a.label = 1;
-                case 1:
-                    _a.trys.push([1, 3, , 4]);
+                    _a.trys.push([0, 2, , 3]);
                     return [4 /*yield*/, NotToDoListService_1.default.insertNote(req.body.contenido, req.body.categoria, req.body.nombre)];
-                case 2:
+                case 1:
                     _ = _a.sent();
                     res.status(201).json();
-                    return [3 /*break*/, 4];
-                case 3:
-                    error_1 = _a.sent();
-                    console.log(error_1);
+                    return [3 /*break*/, 3];
+                case 2:
+                    error_2 = _a.sent();
+                    console.log(error_2);
                     res.status(400).json({ error: "Algo salio mal" });
-                    return [3 /*break*/, 4];
-                case 4: return [2 /*return*/];
+                    return [3 /*break*/, 3];
+                case 3: return [2 /*return*/];
             }
         });
     });
@@ -86,39 +91,35 @@ function createNote(req, res) {
 exports.createNote = createNote;
 function getAllUserNotes(req, res) {
     return __awaiter(this, void 0, void 0, function () {
-        var line, users, user, categorys, noteResponse, response;
+        var line, categories, noteResponse, response;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     console.log("get all line from user controller");
                     line = req.params.email;
-                    console.log(line);
-                    return [4 /*yield*/, UserService_1.default.getIdByEmail(line)];
+                    return [4 /*yield*/, NotToDoListService_1.default.getAllNotes()];
                 case 1:
-                    users = _a.sent();
-                    user = users[0].idusuario || 0;
-                    return [4 /*yield*/, NotToDoListService_1.default.getById(user)];
+                    categories = _a.sent();
+                    return [4 /*yield*/, User_NotToDoListService_1.default.getAllUserHasList(line)];
                 case 2:
-                    categorys = _a.sent();
-                    return [4 /*yield*/, User_NotToDoListService_1.default.getAllUserHasList()];
-                case 3:
                     noteResponse = _a.sent();
-                    response = [];
-                    categorys.map(function (e) {
-                        console.log("category text");
-                        console.log(e);
-                        // console.log(e.not_to_do_list_idnot_to_do_list);
-                        response.push({
-                            title: e.nombre,
-                            content: noteResponse.filter(function (el) {
-                                if (el.id == e.idnot_to_do_list) {
-                                    return el.nombre;
+                    console.log("--------------------------------------------------");
+                    console.log(categories);
+                    response = categories;
+                    response = categories.map(function (category) {
+                        return {
+                            id: category.id,
+                            title: category.nombre,
+                            contenido: noteResponse.map(function (note) {
+                                if (category.id == note.idCategoria) {
+                                    return note.contenido;
                                 }
-                            }).map(function (e) { return e.nombre; })
-                        });
+                                ;
+                            }).filter(function (e) { return e != null; })
+                        };
                     });
-                    console.log("response not to do list");
                     console.log(response);
+                    console.log(JSON.stringify(response));
                     res.status(200).json(response);
                     return [2 /*return*/];
             }

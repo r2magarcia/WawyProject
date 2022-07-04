@@ -29,7 +29,9 @@ calendar::first-letter {
 .calendar-container{
     overflow-x: hidden !important;
 }
-
+.fc-event-time{
+    color: gray;
+}
 
 
 
@@ -88,4 +90,3 @@ calendar::first-letter {
     flex-flow: row wrap;
     justify-content: space-between;
 }
-
