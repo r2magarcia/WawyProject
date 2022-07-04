@@ -2,6 +2,7 @@ import React from "react";
 import { Component } from "react";
 import "./Activity.css";
 import { Card, ListGroup } from "react-bootstrap";
+import { request } from "https";
 const { url } = require("../../../config");
 
 interface props {
@@ -27,39 +28,28 @@ export default class Activity extends Component<props, state> {
     this.userCategories = [];
   }
   componentDidMount() {
-
-    const requestEstados = new Request(`${url}/ntdlcategories`, {
+    const content = new Request(`${url}/note/byuser/${this.props.loggedUser}`, {
       method: "GET",
       headers: {
         Accept: "application/json",
       },
     });
-    fetch(requestEstados).then((resp) =>
+    fetch(content).then((resp) =>
       resp.json().then((body) => {
-        console.log(body);
-        
-        let categoria = body.map((e: any) => {
+        let categorias = body.map((e: any) => {
           return {
             id: e.id,
-            title: e.nombre,
-            content: [''],
+            title: e.title,
+            content: e.contenido,
           };
-
-          
         });
-        this.setState({ currentCategories: categoria });
-        this.userCategories = this.state.currentCategories;
+        console.log(categorias);
+
+        this.setState({ currentCategories: categorias });
+        this.userCategories = categorias;
       })
     );
-    const request = new Request(`${url}/note/byuser/${this.props.loggedUser}`, {
-      method: "GET",
-      headers: {
-        Accept: "application/json",
-      },
-    });
-    fetch(request).then((resp) => resp.json().then((body) =>{
-      this.setState({ currentCategories: body })
-      this.userCategories=body}));
+    
   }
 
   handleChange(event: any, indexCategory: React.Key, indexInput: React.Key) {
@@ -81,7 +71,6 @@ export default class Activity extends Component<props, state> {
 
     this.setState({ currentCategories: this.userCategories });
   }
-
   render() {
     return (
       <>
@@ -91,11 +80,13 @@ export default class Activity extends Component<props, state> {
               <Card key={indexCategory} className="card-container">
                 <Card.Body>
                   <Card.Title>
-                    {" "}
-                    <h5>{item.title}</h5>{" "}
+                    <h5>{item.title}</h5>
                   </Card.Title>
                   <form action="">
-                    <ListGroup variant="flush">
+                    <ListGroup variant="flush"> 
+            
+                    {/* <p><>{item.title} </></p>  */}
+                    <>
                       {item.content.map(
                         (content: string, indexInput: React.Key) => (
                           <ListGroup.Item key={indexInput}>
@@ -119,13 +110,14 @@ export default class Activity extends Component<props, state> {
                           </ListGroup.Item>
                         )
                       )}
+                      </>
                       <button
                         className="plus-btn"
                         onClick={(e) => this.onClickPlus(e, indexCategory)}
                       >
                         +
                       </button>
-                    </ListGroup>
+                     </ListGroup>
                   </form>
                 </Card.Body>
               </Card>

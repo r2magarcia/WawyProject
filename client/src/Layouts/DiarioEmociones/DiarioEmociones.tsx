@@ -28,12 +28,14 @@ interface props {
 }
 
 interface state {
-  records: Array<DiaryEntry>;
+
+
+  records: Array<any>;
   estadosEmocionales: Array<any>;
 }
 
 export default class DiarioEmociones extends Component<props, state> {
-  events: calendarEvent;
+  events: any;
   currentEmotion: number;
 
   constructor(props: props | Readonly<props>) {
@@ -60,16 +62,19 @@ export default class DiarioEmociones extends Component<props, state> {
     );
     fetch(request).then((resp) =>
       resp.json().then((body) => {
-        this.setState({ records: body });
+        
 
-        this.events = body.map((e: any) => {
+        this.events = body.map((e: any, idx: number) => {
           return {
+            id: idx,
             title: "",
-            date: Date.parse(e.fecha),
+            start: Date.parse(e.fecha)-18000000,
+            end: Date.parse(e.fecha)-179999900,
             color: e.color,
-            display: "background",
           };
         });
+
+        this.setState({records: this.events})
       })
     );
 
@@ -105,8 +110,19 @@ export default class DiarioEmociones extends Component<props, state> {
       idEmocion: this.currentEmotion,
       email: this.props.loggedUser,
     };
+    let eventToPush = {
+      id: this.state.records.length,
+      title: "",
+      start:  new Date(),
+      end:  new Date(),
+      color: this.state.estadosEmocionales[this.currentEmotion],
+    }
+    let eventRecords = this.state.records;
+    eventRecords.push(eventToPush);
+    console.log(eventRecords);
+    
+    this.setState({records: eventRecords});
     this.submitToDatabase(data);
-    event.preventDefault();
   }
   submitToDatabase(data: any) {
     const request = new Request(`${url}/diary`, {
@@ -119,14 +135,13 @@ export default class DiarioEmociones extends Component<props, state> {
     });
     fetch(request).then((resp) =>
       resp.json().then((body) => {
-        this.events = body.map((e: any) => {
-          return {
-            title: "",
-            date: Date.parse(e.fecha),
-            color: e.color,
-            display: "background",
-          };
-        });
+        if(body.error){
+          console.log('algo salio mal ingresando los datos');
+          
+        }else{
+          console.log('datos entrados');
+          
+        }
       })
     );
   }
@@ -153,7 +168,11 @@ export default class DiarioEmociones extends Component<props, state> {
               <Card.Title> ¿Cómo te sentiste hoy? </Card.Title>
               <div className="form-emotion">
                 <form action="">
+
                   <select onChange={(e) => this.handleChange(e)}>
+                  <option value="default"  selected disabled hidden >
+                        Selecciona aqui
+                      </option>
                     {this.state.estadosEmocionales.map((option, idx) => (
                       <option key={idx} value={option.value}>
                         {option.label}
@@ -172,11 +191,12 @@ export default class DiarioEmociones extends Component<props, state> {
             <div className="calendar">
               <FullCalendar
                 plugins={[dayGridPlugin]}
-                initialView="dayGridMonth"
+                initialView= 'dayGridWeek'
                 locale={"es"}
-                defaultAllDay={true}
+                defaultAllDay={false}
                 navLinks={false}
-                events={this.events}
+                events={this.state.records}
+                eventDisplay="list-item"
               />
             </div>
             <div className="color-meaning">

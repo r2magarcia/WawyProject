@@ -9,7 +9,7 @@ export default class NavBar extends Component {
     return (
       <Navbar bg="dark" variant="dark" className="navbar-color">
         <Container>
-          <Navbar.Brand href="./">Wawy</Navbar.Brand>
+          <Navbar.Brand href="./">WAWY</Navbar.Brand>
           <Nav className="me-auto">
             {[
               { title: "Diario de Emociones", link: "diario-de-emociones" },

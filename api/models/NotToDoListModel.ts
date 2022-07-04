@@ -3,14 +3,14 @@ import Model from './model';
 
 
 export default class NotToDoList extends Model /*implements ModelI*/{
-    idnot_to_do_list: number | null = null;
+    id: number | null = null;
     nombre: string;
 
-    constructor(nombre: string, idnot_to_do_list?: number){
+    constructor(nombre: string, id?: number){
         super();
 
-        if (idnot_to_do_list){
-            this.idnot_to_do_list=idnot_to_do_list;
+        if (id){
+            this.id=id;
         };
         this.nombre=nombre;
     }         
