@@ -1,7 +1,7 @@
 import React from "react";
 import { Component } from "react";
 import "./Activity.css";
-import { Card, ListGroup } from "react-bootstrap";
+import { Button, Card, ListGroup } from "react-bootstrap";
 import { request } from "https";
 const { url } = require("../../../config");
 
@@ -74,6 +74,9 @@ export default class Activity extends Component<props, state> {
   render() {
     return (
       <>
+      <div className="activity-bar">
+        <button className="btn-guardar">Guardar</button>
+      </div>
         <div className="activity-container">
           {this.state.currentCategories.map(
             (item: category, indexCategory: React.Key) => (

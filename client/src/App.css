@@ -46,6 +46,7 @@ h1, h2, h3, h4, h5, h6{
     transform: rotate(360deg);
   }
 }
+/*
 ::-webkit-scrollbar {
   background-color: transparent;
   width: 14px;
@@ -71,3 +72,4 @@ h1, h2, h3, h4, h5, h6{
 ::-webkit-scrollbar-corner {
   background-color: transparent;
 }
+*/
