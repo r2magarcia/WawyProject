@@ -32,6 +32,19 @@ module UserService {
         const result = Model.execQuery(query);
         return result;
     }
+
+    export function filterUsers(input: string){
+        const query = `SELECT * from ${database}.usuarios nombre WHERE LIKE '%${input}%' OR email LIKE '%${input}%;`;
+        const result = Model.execQuery(query);
+        return result;
+    }
+
+    export function getChatResponsesByUser(userId: number){
+        const query = `SELECT * from ${database}.respuestas nombre WHERE idusuario = ${userId} ORDER BY fecha ASC`;
+        const result = Model.execQuery(query);
+        return result;
+    }
+
     
     export function getUserById(id: number){
         const query = `SELECT * from ${database}.usuarios where idusuario = '${id}'`;

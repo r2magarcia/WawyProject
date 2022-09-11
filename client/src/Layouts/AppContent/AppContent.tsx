@@ -5,6 +5,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Chat from "../Chat/Chat";
 import DiarioEmociones from "../DiarioEmociones/DiarioEmociones";
 import Home from "../Home/Home";
+import NavBar from "../NavBar";
 import NotToDoList from "../NotToDoList/NotToDoList";
 import "./AppContent.css";
 
@@ -12,10 +13,10 @@ export default class AppContent extends Component {
   render() {
     return (
       <>
+      <NavBar></NavBar>
         <Container fluid="lg">
           <Row>
             <div className="app-container">
-              <BrowserRouter>
                 <Routes>
                   <Route
                     path="/not-to-do-list"
@@ -27,7 +28,6 @@ export default class AppContent extends Component {
                     element={<DiarioEmociones loggedUser="test@email.com" />}
                   ></Route>
                 </Routes>
-              </BrowserRouter>
 
               <div className="chat-container">
                 <Chat></Chat>

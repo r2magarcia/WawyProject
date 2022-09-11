@@ -19,11 +19,11 @@ export async function getAllNotes(req: Request, res: Response) {
 
 export async function createNote(req: Request, res: Response) {
   try {
-    const _ = await listService.insertNote(
-      req.body.contenido,
-      req.body.categoria,
-      req.body.nombre
-    );
+    const const1 = await listService.deleteNotesFromUser(req.params.email);
+    const const2 = await listService.insertNotes(req.body, req.params.email);
+    console.log("createNote");
+    console.log(req.body);
+
     res.status(201).json();
   } catch (error) {
     console.log(error);
@@ -47,11 +47,15 @@ export async function getAllUserNotes(req: Request, res: Response) {
 
   response = categories.map((category) => {
     return {
-        id: category.id,
+      id: category.id,
       title: category.nombre,
-      contenido: noteResponse.map((note) => {
-        if (category.id == note.idCategoria){return note.contenido} ;
-      }).filter(e=> e != null)
+      contenido: noteResponse
+        .map((note) => {
+          if (category.id == note.idCategoria) {
+            return note.contenido;
+          }
+        })
+        .filter((e) => e != null),
     };
   });
   console.log(response);
