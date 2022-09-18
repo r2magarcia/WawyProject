@@ -3,8 +3,7 @@ import UserService from "../services/UserService";
 import User from "../models/UserModel";
 
 export async function getAllUsers(req: Request, res: Response){
-    console.log("get all Users controller");
-    const users: Array<User>=await UserService.getAllUsers();
+    const users: Array<User>=await UserService.getAllUsers();    
     res.status(201).json(users);
 }
 
@@ -12,6 +11,11 @@ export async function createUser(req: Request, res: Response){
     console.log(req.body);
     const user: User= new User(req.body.nombre, req.body.email, req.body.contrasena, req.body.active);
     const response : User = await UserService.inserUser(user.email, user.contrasena, user.active);
+    res.status(201).json(response);
+}
+
+export async function filterUserBy(req: Request, res: Response){
+    const response : User = await UserService.filterUsers(req.params.filterBy);
     res.status(201).json(response);
 }
 
