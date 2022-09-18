@@ -169,7 +169,7 @@ export default class DiarioEmociones extends Component<props, state> {
               <div className="form-emotion">
                 <form action="">
 
-                  <select onChange={(e) => this.handleChange(e)}>
+                  <select className="select-emotion" onChange={(e) => this.handleChange(e)}>
                   <option value="default"  selected disabled hidden >
                         Selecciona aqui
                       </option>
@@ -179,7 +179,7 @@ export default class DiarioEmociones extends Component<props, state> {
                       </option>
                     ))}
                   </select>
-                  <button onClick={(e) => this.handleSubmit(e)}>
+                  <button className="btn-ingresarEstado" onClick={(e) => this.handleSubmit(e)}>
                     Ingresar
                   </button>
                 </form>

@@ -41,6 +41,12 @@ module AnswerService {
         return result;
     }
 
+    export function getChatResponsesByUser(userId: string){
+        const query = `SELECT * from ${database}.respuestas nombre WHERE idusuario = '${userId}' ORDER BY fecha ASC`;
+        const result = Model.execQuery(query);
+        return result;
+    }
+
 
 }
 

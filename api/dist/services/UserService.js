@@ -34,6 +34,18 @@ var UserService;
         return result;
     }
     UserService.getAllUsers = getAllUsers;
+    function filterUsers(input) {
+        var query = "SELECT * from " + database + ".usuarios nombre WHERE LIKE '%" + input + "%' OR email LIKE '%" + input + "%;";
+        var result = model_1.default.execQuery(query);
+        return result;
+    }
+    UserService.filterUsers = filterUsers;
+    function getChatResponsesByUser(userId) {
+        var query = "SELECT * from " + database + ".respuestas nombre WHERE idusuario = " + userId + " ORDER BY fecha ASC";
+        var result = model_1.default.execQuery(query);
+        return result;
+    }
+    UserService.getChatResponsesByUser = getChatResponsesByUser;
     function getUserById(id) {
         var query = "SELECT * from " + database + ".usuarios where idusuario = '" + id + "'";
         var result = model_1.default.execQuery(query);

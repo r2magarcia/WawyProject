@@ -68,22 +68,27 @@ function getAllNotes(req, res) {
 exports.getAllNotes = getAllNotes;
 function createNote(req, res) {
     return __awaiter(this, void 0, void 0, function () {
-        var _, error_2;
+        var const1, const2, error_2;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    _a.trys.push([0, 2, , 3]);
-                    return [4 /*yield*/, NotToDoListService_1.default.insertNote(req.body.contenido, req.body.categoria, req.body.nombre)];
+                    _a.trys.push([0, 3, , 4]);
+                    return [4 /*yield*/, NotToDoListService_1.default.deleteNotesFromUser(req.params.email)];
                 case 1:
-                    _ = _a.sent();
-                    res.status(201).json();
-                    return [3 /*break*/, 3];
+                    const1 = _a.sent();
+                    return [4 /*yield*/, NotToDoListService_1.default.insertNotes(req.body, req.params.email)];
                 case 2:
+                    const2 = _a.sent();
+                    console.log("createNote");
+                    console.log(req.body);
+                    res.status(201).json();
+                    return [3 /*break*/, 4];
+                case 3:
                     error_2 = _a.sent();
                     console.log(error_2);
                     res.status(400).json({ error: "Algo salio mal" });
-                    return [3 /*break*/, 3];
-                case 3: return [2 /*return*/];
+                    return [3 /*break*/, 4];
+                case 4: return [2 /*return*/];
             }
         });
     });
@@ -110,12 +115,13 @@ function getAllUserNotes(req, res) {
                         return {
                             id: category.id,
                             title: category.nombre,
-                            contenido: noteResponse.map(function (note) {
+                            contenido: noteResponse
+                                .map(function (note) {
                                 if (category.id == note.idCategoria) {
                                     return note.contenido;
                                 }
-                                ;
-                            }).filter(function (e) { return e != null; })
+                            })
+                                .filter(function (e) { return e != null; }),
                         };
                     });
                     console.log(response);

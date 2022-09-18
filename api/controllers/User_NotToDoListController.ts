@@ -10,13 +10,13 @@ import NotToDoListService from "../services/NotToDoListService";
 
 export async function getAllNotes(req: Request, res: Response){
     console.log("get all line controller");
-    const line: Array<User_NotToDoList>=await UserHasListService.getAllUserHasList();
-    res.status(201).json(line);
+    //const line: Array<User_NotToDoList>=await UserHasListService.getAllUserHasList();
+    res.status(201).json();
 }
 
 export async function createNote(req: Request, res: Response){
     console.log(req.body);
-    const line: User_NotToDoList= new User_NotToDoList(req.body.id, req.body.nombre);
-    const response : User_NotToDoList = await UserHasListService.insertUserHasList(line.nombre);
-    res.status(201).json(response);
+    //const line: User_NotToDoList= new User_NotToDoList(req.body.id, req.body.nombre);
+    //const response : User_NotToDoList = await UserHasListService.insertUserHasList(line.nombre);
+    res.status(201).json();
 }
