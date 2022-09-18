@@ -1,0 +1,12 @@
+.form-container-admin{
+    width: 100% !important;
+    display: flex;
+    /* outline: 1px red solid; */
+    justify-content: space-between;
+}
+
+.submit-btn-filter{
+    padding: 10px;
+    margin-left: 10px;
+}
+

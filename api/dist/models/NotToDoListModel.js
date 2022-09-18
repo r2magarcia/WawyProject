@@ -20,11 +20,11 @@ var model_1 = __importDefault(require("./model"));
 // import { ModelI } from '../interfaces/ModelI';
 var NotToDoList = /** @class */ (function (_super) {
     __extends(NotToDoList, _super); /*implements ModelI*/
-    function NotToDoList(nombre, idlist) {
+    function NotToDoList(nombre, id) {
         var _this = _super.call(this) || this;
-        _this.idlist = null;
-        if (idlist) {
-            _this.idlist = idlist;
+        _this.id = null;
+        if (id) {
+            _this.id = id;
         }
         ;
         _this.nombre = nombre;

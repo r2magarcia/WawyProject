@@ -3,7 +3,9 @@ import { Component } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Chat from "../Chat/Chat";
+import DiarioEmociones from "../DiarioEmociones/DiarioEmociones";
 import Home from "../Home/Home";
+import NavBar from "../NavBar";
 import NotToDoList from "../NotToDoList/NotToDoList";
 import "./AppContent.css";
 
@@ -11,27 +13,28 @@ export default class AppContent extends Component {
   render() {
     return (
       <>
+      <NavBar></NavBar>
         <Container fluid="lg">
           <Row>
-          <div className="app-container">
-              <BrowserRouter>
+            <div className="app-container">
                 <Routes>
                   <Route
                     path="/not-to-do-list"
-                    element={<NotToDoList />}
+                    element={<NotToDoList loggedUser="test@email.com" />}
                   ></Route>
+                  <Route path="/" element={<Home />}></Route>
                   <Route
-                    path="/"
-                    element={<Home />}
+                    path="/diario-de-emociones"
+                    element={<DiarioEmociones loggedUser="test@email.com" />}
                   ></Route>
                 </Routes>
-              </BrowserRouter>
 
-              <div className="chat-container"><Chat></Chat></div>
+              <div className="chat-container">
+                <Chat></Chat>
               </div>
+            </div>
           </Row>
         </Container>
-        
       </>
     );
   }

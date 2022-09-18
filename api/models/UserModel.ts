@@ -3,17 +3,17 @@ import Model from './model';
 
 
 export default class User extends Model /*implements ModelI*/{
-    idlist: number | null = null;
+    idusuario: number | null = null;
     nombre: string;
     email: string;
     contrasena: string;
     active: number;
 
-    constructor(nombre: string, email:string, contrasena:string, active:number, idlist?: number){
+    constructor(nombre: string, email:string, contrasena:string, active:number, idusuario?: number){
         super();
 
-        if (idlist){
-            this.idlist=idlist;
+        if (idusuario){
+            this.idusuario=idusuario;
         };
         this.nombre=nombre;
         this.email=email;

@@ -1,3 +1,5 @@
+"use strict";
 module.exports = {
-    port: 4000,
+    port: 3001,
+    database: 'wawy',
 };

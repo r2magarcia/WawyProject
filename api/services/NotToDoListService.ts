@@ -1,41 +1,54 @@
-import Pilot from '../models/NotToDoListModel';
-import Model from '../models/model';
+import Model from "../models/model";
 
-const { db } = require('../config');
+const { database } = require("../config");
 
 module NotToDoListService {
+  export function insertNotes(categories: Array<any>, email: string) {
+    let query = `INSERT INTO ${database}.nottodolist (id, contenido, idCategoria, idUsuario) VALUES`;
+    categories.map((category) => {
+        console.log(category);
+        
+        category.content.map((note: string) => {
+            query += ` (NULL, '${note}', ${category.id}, (SELECT idusuario FROM ${database}.usuarios WHERE email='${email}')),`;
+        })
+      });
+      query = query.slice(0, -1);
 
-    export function insertNote(name: string){
-        const query = `INSERT INTO mydb.not_to_do_list (idnot_to_do_list, nombre) VALUES (NULL, '${name}')`;
-        const result = Model.execQuery(query);
-        return result;
-    }
-
-    export function deleteNote(id: number){
-        const query = `DELETE FROM mydb.not_to_do_list WHERE idnot_to_do_list = '${id}'`;
-        const result = Model.execQuery(query);
-        return result;
-    }
-
-    export function updateNote(id: number, nombre: string){
-        const query = `UPDATE mydb.not_to_do_list SET Nombre = '${nombre}' WHERE idnot_to_do_list = '${id}'`;
-        const result = Model.execQuery(query);
-        return result;
-    }
-
-    export function getAllNotes(){
-        const query = `SELECT * from mydb.not_to_do_list`;
-        const result = Model.execQuery(query);
-        return result;
-    }
+    console.log(query);
     
-    export function getById(id: number){
-        const query = `SELECT * from mydb.not_to_do_list where idemocion = '${id}'`;
-        const result = Model.execQuery(query);
-        return result;
-    }
+    const result = Model.execQuery(query);
+    return null;
+  }
 
+  export function deleteNote(id: number) {
+    const query = `DELETE FROM ${database}.categoriantdl WHERE id = '${id}'`;
+    const result = Model.execQuery(query);
+    return result;
+  }
 
+  export function deleteNotesFromUser(email: string) {
+    const query = `DELETE FROM ${database}.nottodolist WHERE idUsuario IN (SELECT idusuario FROM ${database}.usuarios WHERE email='${email}')`;
+    const result = Model.execQuery(query);
+    return result;
+  }
+
+  export function updateNote(id: number, nombre: string) {
+    const query = `UPDATE ${database}.categoriantdl SET nombre = '${nombre}' WHERE id = '${id}'`;
+    const result = Model.execQuery(query);
+    return result;
+  }
+
+  export function getAllNotes() {
+    const query = `SELECT * from ${database}.categoriantdl`;
+    const result = Model.execQuery(query);
+    return result;
+  }
+
+  export function getById(id: number) {
+    const query = `SELECT * from ${database}.categoriantdl where id = '${id}'`;
+    const result = Model.execQuery(query);
+    return result;
+  }
 }
 
 export default NotToDoListService;
