@@ -27,3 +27,22 @@ export async function getIdByEmail(req: Request, res: Response){
     
     res.status(201).json(users);
 }
+
+export async function logIn(req: Request, res: Response){
+    console.log(req.params);
+    const cred: string[] = req.params.credentials.split("*", 2);
+    const email: string = cred[0];
+    const pass: string = cred[1];
+    const user: Array<User>=await UserService.getUser(email, pass);
+    if (user.length != 0) {
+        res.status(201).json(user);
+    }
+    const admin: Array<User>=await UserService.getAdmin(email, pass);
+    if (admin.length != 0) {
+        res.status(201).json({
+            userType: "Admin"
+        });
+    }else{
+        res.status(403).json(admin);
+    }
+}

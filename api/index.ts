@@ -59,6 +59,8 @@ app.route("/emotion").get(EstadoEController.getAllEstados);
 
 app.route("/answer/byUser/:id").get(AnswerController.filterAnswerByUser);
 
+app.route("/login/:credentials").get(UserController.logIn);
+
 // app.route('/diary')
 // .get(DiaryController.getAllNotes)
 // .post(DiaryController.createNote);

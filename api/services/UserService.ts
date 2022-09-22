@@ -63,6 +63,22 @@ module UserService {
     const result = Model.execQuery(query);
     return result;
   }
+
+  export function getUser(email: string, pass: string) {
+    const query = `SELECT idusuario from ${database}.usuarios where email = '${email}' and contrasena = '${pass}' LIMIT 1`;
+    const result = Model.execQuery(query);
+    // console.log(result);
+    
+    return result;
+  }
+
+  export function getAdmin(email: string, pass: string) {
+    const query = `SELECT idusuario from ${database}.admins where email = '${email}' and contrasena = '${pass}' LIMIT 1`;
+    const result = Model.execQuery(query);
+    // console.log(result);
+    
+    return result;
+  }
 }
 
 export default UserService;

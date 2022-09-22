@@ -30,8 +30,9 @@ var UserController = __importStar(require("./controllers/UserController"));
 var UserHasListController = __importStar(require("./controllers/User_NotToDoListController"));
 var DiaryController = __importStar(require("./controllers/DairyController"));
 var EstadoEController = __importStar(require("./controllers/EstadosEController"));
+var AnswerController = __importStar(require("./controllers/AnswerController"));
 var app = express_1.default();
-var port = require('./config').port;
+var port = require("./config").port;
 // TODO: Organizar las rutas para admin y requerir una key para acceder a los datos
 // const options:cors.CorsOptions ={
 //     methods: "GET, POST, PUT, DELETE", allowedHeaders: ["Pilots-key", "Teams-key"]
@@ -42,31 +43,35 @@ app.use(body_parser_1.default.urlencoded({ extended: true }));
 /**
  * Only the Not to do list categories
  */
-app.route('/ntdlcategories')
+app
+    .route("/ntdlcategories")
     .get(NotToDoListController.getAllNotes)
     //create a categorie for the Not to Do List
     .post(NotToDoListController.createNote);
-app.route('/user')
+app
+    .route("/user")
     .get(UserController.getAllUsers)
     .post(UserController.createUser);
+app.route("/user/filterBy/:filterBy").get(UserController.filterUserBy);
 /**
  * Not to do list for each user
  */
-app.route('/note')
+app
+    .route("/note")
     .get(UserHasListController.getAllNotes)
     .post(UserHasListController.createNote);
 /**
  * Not to do list for an speceific user given an email
  */
-app.route('/note/byuser/:email')
+app
+    .route("/note/byuser/:email")
     .get(NotToDoListController.getAllUserNotes)
     .post(NotToDoListController.createNote);
-app.route('/diary')
-    .post(DiaryController.createNote);
-app.route('/diary/sorted/:email')
-    .get(DiaryController.getDiarySorted);
-app.route('/emotion')
-    .get(EstadoEController.getAllEstados);
+app.route("/diary").post(DiaryController.createNote);
+app.route("/diary/sorted/:email").get(DiaryController.getDiarySorted);
+app.route("/emotion").get(EstadoEController.getAllEstados);
+app.route("/answer/byUser/:id").get(AnswerController.filterAnswerByUser);
+app.route("/login/:credentials").get(UserController.logIn);
 // app.route('/diary')
 // .get(DiaryController.getAllNotes)
 // .post(DiaryController.createNote);
