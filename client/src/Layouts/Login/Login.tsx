@@ -32,12 +32,12 @@ export default class Login extends Component<props, state>{
   handleUserChange(event: any) {
     this.currentUser = event.target.value || 0;
     console.log(this.currentUser);
-    
+
   }
   handlePasswordChange(event: any) {
     this.currentPassword = event.target.value || 0;
     console.log(this.currentPassword);
-    
+
   }
 
   handleQuery(event: { preventDefault: () => void }) {
@@ -53,14 +53,14 @@ export default class Login extends Component<props, state>{
     let eventRecords = this.state.records;
     // eventRecords.push(eventToPush);
     console.log(eventRecords);
-    
-    this.setState({records: eventRecords});
+
+    this.setState({ records: eventRecords });
     this.queryToDatabase();
   }
 
   queryToDatabase() {
     console.log(`${url}/login/${this.currentUser}*${this.currentPassword}`);
-    
+
     const request = new Request(`${url}/login/${this.currentUser}*${this.currentPassword}`, {
       method: "GET",
       headers: {
@@ -68,17 +68,21 @@ export default class Login extends Component<props, state>{
         "Content-Type": "application/json",
       },
     });
-    fetch(request).then(async (resp) =>{
+    fetch(request).then(async (resp) => {
       console.log(resp.status);
       if (resp.status == 201 && await resp.json().then(body =>
         body.userType
-        )) {
+      )) {
         window.location = `/admin` as unknown as Location
-      }else if(resp.status ==201){
+      } else if (resp.status == 201) {
         window.location = `/` as unknown as Location
       }
     }
     );
+  }
+
+  redirect() {
+    window.location = `/register` as unknown as Location
   }
 
   render() {
@@ -107,8 +111,13 @@ export default class Login extends Component<props, state>{
                       <Form.Control type="password" placeholder="Contraseña" onChange={(e) => this.handlePasswordChange(e)} />
                     </Form.Group>
 
+                    <Button className="btn-ingresarEstado" onClick={(e) => this.handleQuery(e)}> Ingresar </Button>
+
+                    <Form.Group>
+                      <Form.Text className="text-muted">Si aun no tienes una cuenta puedes <Card.Link onClick={() => this.redirect()}>Registrarte aqui</Card.Link></Form.Text>
+                    </Form.Group>
+                    
                   </Form>
-                  <Button className="btn-ingresarEstado" onClick={(e) => this.handleQuery(e)}> Ingresar </Button>
                 </Card.Body>
               </Card>
             </Col>
