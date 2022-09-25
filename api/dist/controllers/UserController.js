@@ -63,9 +63,9 @@ function createUser(req, res) {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    console.log(req.body);
                     user = new UserModel_1.default(req.body.nombre, req.body.email, req.body.contrasena, req.body.active);
-                    return [4 /*yield*/, UserService_1.default.inserUser(user.email, user.contrasena, user.active)];
+                    console.log(user);
+                    return [4 /*yield*/, UserService_1.default.insertUser(user.email, user.contrasena, user.active, user.nombre)];
                 case 1:
                     response = _a.sent();
                     res.status(201).json(response);

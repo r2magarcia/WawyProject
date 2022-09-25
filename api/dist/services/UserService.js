@@ -7,12 +7,12 @@ var model_1 = __importDefault(require("../models/model"));
 var database = require("../config").database;
 var UserService;
 (function (UserService) {
-    function inserUser(email, contrasena, activo) {
-        var query = "INSERT INTO " + database + ".usuarios (idusuario, email, contrasena, activo) VALUES (NULL, '" + email + "', '" + contrasena + "', '" + activo + "')";
+    function insertUser(email, contrasena, activo, nombre) {
+        var query = "INSERT INTO " + database + ".usuarios (idusuario, email, contrasena, activo, nombre) VALUES (NULL, '" + email + "', '" + contrasena + "', '" + activo + "', '" + nombre + "')";
         var result = model_1.default.execQuery(query);
         return result;
     }
-    UserService.inserUser = inserUser;
+    UserService.insertUser = insertUser;
     function deleteUser(id) {
         var query = "DELETE FROM " + database + ".usuariost WHERE idusuario = '" + id + "'";
         var result = model_1.default.execQuery(query);

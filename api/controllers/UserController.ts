@@ -8,9 +8,9 @@ export async function getAllUsers(req: Request, res: Response){
 }
 
 export async function createUser(req: Request, res: Response){
-    console.log(req.body);
     const user: User= new User(req.body.nombre, req.body.email, req.body.contrasena, req.body.active);
-    const response : User = await UserService.inserUser(user.email, user.contrasena, user.active);
+    console.log(user);
+    const response : User = await UserService.insertUser(user.email, user.contrasena, user.active, user.nombre);
     res.status(201).json(response);
 }
 

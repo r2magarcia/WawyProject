@@ -4,8 +4,8 @@ import Model from "../models/model";
 const { database } = require("../config");
 
 module UserService {
-  export function inserUser(email: string, contrasena: string, activo: number) {
-    const query = `INSERT INTO ${database}.usuarios (idusuario, email, contrasena, activo) VALUES (NULL, '${email}', '${contrasena}', '${activo}')`;
+  export function insertUser(email: string, contrasena: string, activo: number, nombre:string) {
+    const query = `INSERT INTO ${database}.usuarios (idusuario, email, contrasena, activo, nombre) VALUES (NULL, '${email}', '${contrasena}', '${activo}', '${nombre}')`;
     const result = Model.execQuery(query);
     return result;
   }
