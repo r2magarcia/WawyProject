@@ -14,6 +14,7 @@ export default class NavBar extends Component {
             {[
               { title: "Diario de Emociones", link: "/diario-de-emociones" },
               { title: "Not to do list", link: "/not-to-do-list" },
+              { title: "Inicio de sesión / Registro", link: "/login"},
               //{ title: "Bullet Journal", link: "bullet-journal" },
             ].map((item, idx) => (
               <Nav.Link href={item.link} key={idx}>
