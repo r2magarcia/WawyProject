@@ -44,6 +44,7 @@ export default class DiarioEmociones extends Component<props, state> {
       records: [],
       estadosEmocionales: [],
     };
+    if(!this.props.loggedUser) window.location = `/login` as unknown as Location
   }
 
   /**
@@ -148,6 +149,7 @@ export default class DiarioEmociones extends Component<props, state> {
 
   render() {
     return (
+      this.props.loggedUser &&
       <>
         <div className="calendar-container">
           <h2>Diario de emociones</h2>

@@ -3,7 +3,10 @@ import { Component } from "react";
 import { Container, Nav, Navbar } from "react-bootstrap";
 import "./Navbar.css"
 
-export default class NavBar extends Component {
+interface props{
+  items: Array<any>;
+}
+export default class NavBar extends Component<props> {
 
   render() {
     return (
@@ -11,12 +14,7 @@ export default class NavBar extends Component {
         <Container>
           <Navbar.Brand href="./">WAWY</Navbar.Brand>
           <Nav className="me-auto">
-            {[
-              { title: "Diario de Emociones", link: "/diario-de-emociones" },
-              { title: "Not to do list", link: "/not-to-do-list" },
-              { title: "Inicio de sesión / Registro", link: "/login"},
-              //{ title: "Bullet Journal", link: "bullet-journal" },
-            ].map((item, idx) => (
+            {this.props.items.map((item, idx) => (
               <Nav.Link href={item.link} key={idx}>
                 {item.title}
               </Nav.Link>

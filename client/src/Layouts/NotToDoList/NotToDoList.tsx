@@ -19,12 +19,16 @@ export default class NotToDoList extends Component<props, state> {
     super(props);
     this.loggedUser = this.props.loggedUser;
     this.state = { data: [] };
+    console.log(this.loggedUser);
+    
+    if(!this.loggedUser) window.location = `/login` as unknown as Location
   }
   categories: Array<category> = [];
   anything: any;
 
   render() {
     return (
+      this.props.loggedUser &&
       <>
         <div className="ntdl-container">
           <div className="title-container">

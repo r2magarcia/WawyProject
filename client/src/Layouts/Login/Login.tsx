@@ -75,6 +75,8 @@ export default class Login extends Component<props, state>{
       )) {
         window.location = `/admin` as unknown as Location
       } else if (resp.status == 201) {
+        
+        localStorage.setItem('email', this.currentUser);        
         window.location = `/` as unknown as Location
       }
     }
@@ -101,9 +103,9 @@ export default class Login extends Component<props, state>{
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                       <Form.Label>Usuario</Form.Label>
                       <Form.Control type="email" placeholder="Email" onChange={(e) => this.handleUserChange(e)} />
-                      <Form.Text className="text-muted">
+                      {/* <Form.Text className="text-muted">
                         We'll never share your email with anyone else.
-                      </Form.Text>
+                      </Form.Text> */}
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="formBasicPassword">
