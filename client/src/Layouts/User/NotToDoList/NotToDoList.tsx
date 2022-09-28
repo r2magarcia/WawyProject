@@ -3,7 +3,6 @@ import { Component } from "react";
 import Activity, { category } from "./Activity/Activity";
 import "./NotToDoList.css";
 
-const { url } = require("../../config");
 
 interface props {
   loggedUser: string;

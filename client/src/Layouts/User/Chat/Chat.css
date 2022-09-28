@@ -1,0 +1,18 @@
+* {box-sizing: border-box;}
+
+
+#inlineFrameExample{
+  border: 2px solid green;
+  width: 400px;
+  height: 80%;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+}
+
+@media (max-width: 800px) {
+  #inlineFrameExample{
+    width: 90%;
+    margin:auto;
+  }
+}

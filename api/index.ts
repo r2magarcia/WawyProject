@@ -7,6 +7,7 @@ import * as UserHasListController from "./controllers/User_NotToDoListController
 import * as DiaryController from "./controllers/DairyController";
 import * as EstadoEController from "./controllers/EstadosEController";
 import * as AnswerController from "./controllers/AnswerController";
+import * as QuestionController from "./controllers/QuestionController";
 
 const app = express();
 const { port } = require("./config");
@@ -62,6 +63,8 @@ app.route("/answer/byUser/:id").get(AnswerController.filterAnswerByUser);
 app.route("/login/:credentials").get(UserController.logIn);
 
 app.route("/register").post(UserController.createUser);
+
+app.route("/question").get(QuestionController.getAllQuestions);
 
 // app.route('/diary')
 // .get(DiaryController.getAllNotes)

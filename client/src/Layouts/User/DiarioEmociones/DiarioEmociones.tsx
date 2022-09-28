@@ -4,7 +4,7 @@ import "./DiarioEmociones.css";
 import FullCalendar from "@fullcalendar/react"; // must go before plugins
 import dayGridPlugin from "@fullcalendar/daygrid"; // a plugin!
 import { Card, ListGroup } from "react-bootstrap";
-const { url } = require("../../config");
+import { url } from "../../../config";
 
 interface InputWrapperProps {
   children?: React.ReactNode;
