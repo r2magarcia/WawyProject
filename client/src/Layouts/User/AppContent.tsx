@@ -7,8 +7,9 @@ import DiarioEmociones from "./DiarioEmociones/DiarioEmociones";
 import Login from "../Login/Login";
 import Register from "../Register/Register";
 import Home from "../Home/Home";
-import NavBar from "../Navbar/NavBar";
-import NotToDoList from "./NotToDoList/NotToDoList";
+import NavBar from "../NavBar";
+import NotToDoList from "../NotToDoList/NotToDoList";
+import BulletJournal from "../BulletJournal/BulletJournal";
 import "./AppContent.css";
 interface props {
 }
@@ -41,6 +42,10 @@ export default class AppContent extends Component {
                 <Route
                   path="/diario-de-emociones"
                   element={<DiarioEmociones loggedUser={this.email} />}
+                ></Route>
+                <Route
+                  path="/bulletjournal"
+                  element={<BulletJournal />}
                 ></Route>
                 <Route
                   path="/login"
