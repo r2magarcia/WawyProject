@@ -39,7 +39,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getIdByEmail = exports.createUser = exports.getAllUsers = void 0;
+exports.logIn = exports.getIdByEmail = exports.filterUserBy = exports.createUser = exports.getAllUsers = void 0;
 var UserService_1 = __importDefault(require("../services/UserService"));
 var UserModel_1 = __importDefault(require("../models/UserModel"));
 function getAllUsers(req, res) {
@@ -47,9 +47,7 @@ function getAllUsers(req, res) {
         var users;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0:
-                    console.log("get all Users controller");
-                    return [4 /*yield*/, UserService_1.default.getAllUsers()];
+                case 0: return [4 /*yield*/, UserService_1.default.getAllUsers()];
                 case 1:
                     users = _a.sent();
                     res.status(201).json(users);
@@ -65,9 +63,9 @@ function createUser(req, res) {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    console.log(req.body);
                     user = new UserModel_1.default(req.body.nombre, req.body.email, req.body.contrasena, req.body.active);
-                    return [4 /*yield*/, UserService_1.default.inserUser(user.email, user.contrasena, user.active)];
+                    console.log(user);
+                    return [4 /*yield*/, UserService_1.default.insertUser(user.email, user.contrasena, user.active, user.nombre)];
                 case 1:
                     response = _a.sent();
                     res.status(201).json(response);
@@ -77,6 +75,21 @@ function createUser(req, res) {
     });
 }
 exports.createUser = createUser;
+function filterUserBy(req, res) {
+    return __awaiter(this, void 0, void 0, function () {
+        var response;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, UserService_1.default.filterUsers(req.params.filterBy)];
+                case 1:
+                    response = _a.sent();
+                    res.status(201).json(response);
+                    return [2 /*return*/];
+            }
+        });
+    });
+}
+exports.filterUserBy = filterUserBy;
 function getIdByEmail(req, res) {
     return __awaiter(this, void 0, void 0, function () {
         var email, users;
@@ -96,3 +109,36 @@ function getIdByEmail(req, res) {
     });
 }
 exports.getIdByEmail = getIdByEmail;
+function logIn(req, res) {
+    return __awaiter(this, void 0, void 0, function () {
+        var cred, email, pass, user, admin;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    console.log(req.params);
+                    cred = req.params.credentials.split("*", 2);
+                    email = cred[0];
+                    pass = cred[1];
+                    return [4 /*yield*/, UserService_1.default.getUser(email, pass)];
+                case 1:
+                    user = _a.sent();
+                    if (user.length != 0) {
+                        res.status(201).json(user);
+                    }
+                    return [4 /*yield*/, UserService_1.default.getAdmin(email, pass)];
+                case 2:
+                    admin = _a.sent();
+                    if (admin.length != 0) {
+                        res.status(201).json({
+                            userType: "Admin"
+                        });
+                    }
+                    else {
+                        res.status(403).json(admin);
+                    }
+                    return [2 /*return*/];
+            }
+        });
+    });
+}
+exports.logIn = logIn;

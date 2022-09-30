@@ -1,7 +1,5 @@
 import React from "react";
 import { Component } from "react";
-import { propTypes } from "react-bootstrap/esm/Image";
-import { json } from "stream/consumers";
 import Activity, { category } from "./Activity/Activity";
 import "./NotToDoList.css";
 

@@ -13,3 +13,13 @@ export async function createNote(req: Request, res: Response){
     const response : Answer = await AnswerService.insertAnswer(ans.pregunta, ans.respuesta, ans.fecha, ans.idUser);
     res.status(201).json(response);
 }
+
+export async function filterAnswerByUser(req: Request, res: Response){
+    console.log('filterAnswerByUser');
+    console.log(req.params.id);
+    
+    const response : Answer = await AnswerService.getChatResponsesByUser(req.params.id);
+    console.log(response);
+    
+    res.status(201).json(response);
+}

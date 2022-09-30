@@ -12,8 +12,10 @@ export default class NavBar extends Component {
           <Navbar.Brand href="./">WAWY</Navbar.Brand>
           <Nav className="me-auto">
             {[
-              { title: "Diario de Emociones", link: "diario-de-emociones" },
-              { title: "Not to do list", link: "not-to-do-list" },
+              { title: "Diario de Emociones", link: "/diario-de-emociones" },
+              { title: "Not to do list", link: "/not-to-do-list" },
+              { title: "Bullet Journal", link:"/bulletjournal"},
+              { title: "Inicio de sesión / Registro", link: "/login"},
               //{ title: "Bullet Journal", link: "bullet-journal" },
             ].map((item, idx) => (
               <Nav.Link href={item.link} key={idx}>
