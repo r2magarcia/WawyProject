@@ -8,6 +8,8 @@ import * as DiaryController from "./controllers/DairyController";
 import * as EstadoEController from "./controllers/EstadosEController";
 import * as AnswerController from "./controllers/AnswerController";
 import * as QuestionController from "./controllers/QuestionController";
+import * as JournalController from "./controllers/JournalController";
+import * as DiagnosticoController from "./controllers/DiagnosticoController";
 
 const app = express();
 const { port } = require("./config");
@@ -66,6 +68,12 @@ app.route("/register").post(UserController.createUser);
 
 app.route("/question").get(QuestionController.getAllQuestions);
 
+app.route("/journal").post(JournalController.insertEntry);
+
+app.route("/diagnostico").post(DiagnosticoController.insertEntry);
+
+app.route("/bullet-journal/:email").get(JournalController.getEntries)
+.post(JournalController.insertEntry);
 // app.route('/diary')
 // .get(DiaryController.getAllNotes)
 // .post(DiaryController.createNote);

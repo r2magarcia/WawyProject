@@ -59,7 +59,7 @@ module UserService {
   }
 
   export function getIdByEmail(email: string) {
-    const query = `SELECT idusuario from ${database}.usuarios where email = '${email}'`;
+    const query = `SELECT idusuario from ${database}.usuarios where email = '${email}' LIMIT 1`;
     const result = Model.execQuery(query);
     return result;
   }

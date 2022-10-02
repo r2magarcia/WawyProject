@@ -1,17 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Container, Table } from "react-bootstrap";
 import { url } from "../../../config";
-import { RouteProps } from 'react-router';
 import { useParams } from "react-router-dom";
 
-interface state {
-  answers: Array<any>;
-  paramId: number;
-}
-
 // export default class AnswerByUser extends React.Component<RouteProps, state> {
-
-
 
   export default function AnswerByUser() {
     let [arr, setArr] = useState<any[]>([]);
@@ -69,8 +61,4 @@ interface state {
     );
   }
 
-
-function axios(arg0: () => string) {
-  throw new Error("Function not implemented.");
-}
 

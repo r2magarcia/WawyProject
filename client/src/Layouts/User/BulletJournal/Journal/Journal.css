@@ -1,0 +1,32 @@
+
+.inline{
+    display: inline-block;
+    flex-basis: content;
+    flex-grow: 2;
+    min-width: fit-content;
+    margin-right: 10px;
+}
+
+.checkboxes-container{
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.task-category{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    flex-flow: row wrap;
+}
+
+.card-bullet-journal{
+    width: 50rem;
+}
+
+
+@media (max-width: 800px) {
+    .card-bullet-journal{
+      width: 95%;
+    }
+  }

@@ -1,16 +1,17 @@
 import React from "react";
 import { Component } from "react";
 import { Container, Row, Col } from "react-bootstrap";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Chat from "./Chat/Chat";
 import DiarioEmociones from "./DiarioEmociones/DiarioEmociones";
 import Login from "../Login/Login";
 import Register from "../Register/Register";
 import Home from "../Home/Home";
-import NavBar from "../NavBar";
-import NotToDoList from "../NotToDoList/NotToDoList";
-import BulletJournal from "../BulletJournal/BulletJournal";
+import NavBar from "../Navbar/NavBar";
+import NotToDoList from "./NotToDoList/NotToDoList";
+import BulletJournal from "./BulletJournal/BulletJournal";
 import "./AppContent.css";
+import Journal from "./BulletJournal/Journal/Journal";
 interface props {
 }
 export default class AppContent extends Component {
@@ -25,8 +26,7 @@ export default class AppContent extends Component {
         <NavBar items={[
               { title: "Diario de Emociones", link: "/diario-de-emociones" },
               { title: "Not to do list", link: "/not-to-do-list" },
-              { title: "Inicio de sesión / Registro", link: "/login"},
-              //{ title: "Bullet Journal", link: "bullet-journal" },
+              { title: "Bullet Journal", link: "bullet-journal" },
             ]}></NavBar>
         <Container fluid="lg">
           <Row>
@@ -44,8 +44,8 @@ export default class AppContent extends Component {
                   element={<DiarioEmociones loggedUser={this.email} />}
                 ></Route>
                 <Route
-                  path="/bulletjournal"
-                  element={<BulletJournal />}
+                  path="/bullet-journal"
+                  element={<Journal loggedUser={this.email}/>}
                 ></Route>
                 <Route
                   path="/login"

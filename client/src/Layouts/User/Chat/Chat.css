@@ -12,7 +12,6 @@
 
 @media (max-width: 800px) {
   #inlineFrameExample{
-    width: 90%;
-    margin:auto;
+    width: 100%;
   }
 }
