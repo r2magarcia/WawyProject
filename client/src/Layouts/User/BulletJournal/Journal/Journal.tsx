@@ -26,7 +26,7 @@ export default function Journal(props: { loggedUser: any }) {
   useEffect(() => {
     console.log("id", `${url}/bullet-journal/${props.loggedUser}`);
 
-    const content = new Request(`${url}/answer/${props.loggedUser}`, {
+    const content = new Request(`${url}/bullet-journal/${props.loggedUser}`, {
       method: "GET",
       headers: {
         Accept: "application/json",
@@ -39,6 +39,8 @@ export default function Journal(props: { loggedUser: any }) {
         setSeguimientoMorning(JSON.parse(body.seguimientoDiario).morning);
         setSeguimientoAfternoon(JSON.parse(body.seguimientoDiario).afternoon);
         setProyectoSemanal(JSON.parse(body.proyectoSemanal));
+
+        console.log(seguimientoMorning);
       })
     );
   }, [props]);
@@ -60,14 +62,14 @@ export default function Journal(props: { loggedUser: any }) {
     e?.preventDefault();
     let aux = [...seguimientoMorning];
     console.log(aux);
-    
+
     let aux2 = [...seguimientoMorning[idxActividad].check];
     console.log(aux2);
-    
+
     aux2[idxCheckbox] = !aux2[idxCheckbox];
     aux[idxActividad].check = aux2;
     console.log(aux);
-    
+
     setSeguimientoMorning(aux);
   };
 
@@ -86,16 +88,16 @@ export default function Journal(props: { loggedUser: any }) {
     e?.preventDefault();
     let aux = [...seguimientoAfternoon];
     console.log(aux);
-    
+
     let aux2 = [...seguimientoAfternoon[idxActividad].check];
     console.log(aux2);
-    
+
     aux2[idxCheckbox] = !aux2[idxCheckbox];
     aux[idxActividad].check = aux2;
     console.log(aux);
-    
+
     setSeguimientoAfternoon(aux);
-  }
+  };
 
   const handleChangeProyectoStatus = (e: any, idxProyecto: number) => {
     e?.preventDefault();
@@ -110,16 +112,38 @@ export default function Journal(props: { loggedUser: any }) {
     setProyectoSemanal(aux);
   };
 
-  const handleSubmit = (e:any) => {
+  const handleSubmit = (e: any) => {
     e.preventDefault();
-    
-  }
+    const data = {
+      notas: notas,
+      user: props.loggedUser,
+      seguimientoDiario: {
+        morning: seguimientoMorning,
+        afternoon: seguimientoAfternoon,
+      },
+      proyectoSemanal: proyectoSemanal,
+      fecha: new Date(),
+    };
+
+    const content = new Request(`${url}/bullet-journal`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+    fetch(content).then((resp) =>
+      resp.json().then((body) => {
+        console.log(body);
+      })
+    );
+  };
   return (
     <>
       <Card className="card-bullet-journal">
         <Card.Body>
           <Form>
-            
             <div className="top-card-container">
               <div>
                 <Card.Title>Tareas diarias y semanales</Card.Title>
@@ -184,6 +208,28 @@ export default function Journal(props: { loggedUser: any }) {
                       </>
                     )
                   )}
+                  <Button
+                    variant="secondary"
+                    onClick={(e) =>
+                      setSeguimientoMorning([
+                        ...seguimientoMorning,
+                        {
+                          name: "",
+                          check: [
+                            false,
+                            false,
+                            false,
+                            false,
+                            false,
+                            false,
+                            false,
+                          ],
+                        },
+                      ])
+                    }
+                  >
+                    +
+                  </Button>
                 </div>
               </div>
 
@@ -227,6 +273,28 @@ export default function Journal(props: { loggedUser: any }) {
                       </>
                     )
                   )}
+                  <Button
+                    variant="secondary"
+                    onClick={(e) =>
+                      setSeguimientoAfternoon([
+                        ...seguimientoAfternoon,
+                        {
+                          name: "",
+                          check: [
+                            false,
+                            false,
+                            false,
+                            false,
+                            false,
+                            false,
+                            false,
+                          ],
+                        },
+                      ])
+                    }
+                  >
+                    +
+                  </Button>
                 </div>
               </div>
             </Form.Group>
@@ -255,11 +323,26 @@ export default function Journal(props: { loggedUser: any }) {
                     </div>
                   </>
                 ))}
+                <Button
+                  variant="secondary"
+                  onClick={(e) =>
+                    setProyectoSemanal([
+                      ...proyectoSemanal,
+                      {
+                        name: "",
+                        check: false
+                      },
+                    ])
+                  }
+                >
+                  +
+                </Button>
               </div>
             </Form.Group>
-            <Button variant="primary" onClick={handleSubmit}>Guardar</Button>
+            <Button variant="primary" onClick={handleSubmit}>
+              Guardar
+            </Button>
           </Form>
-          
         </Card.Body>
       </Card>
     </>
@@ -269,6 +352,5 @@ export default function Journal(props: { loggedUser: any }) {
 // {"morning":[{"name":"","check":[false,false,false,false,false,false,false]}],"afternoon":[{"name":"","check":[false,false,false,false,false,false,false]}]}
 
 // [{"name":"test","status":true}]
-
 
 // INSERT INTO `bulletjournal` (`id`, `notas`, `idUsuario`, `seguimientoDiario`, `proyectoSemanal`, `fecha`) VALUES (NULL, '', '', '{\"morning\":[{\"name\":\"\",\"check\":[false,false,false,false,false,false,false]}],\"afternoon\":[{\"name\":\"\",\"check\":[false,false,false,false,false,false,false]}]}', '[{\"name\":\"test\",\"status\":true}]', '2022-10-03 00:37:01.000000');

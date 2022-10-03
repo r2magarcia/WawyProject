@@ -72,8 +72,10 @@ app.route("/journal").post(JournalController.insertEntry);
 
 app.route("/diagnostico").post(DiagnosticoController.insertEntry);
 
-app.route("/bullet-journal/:email").get(JournalController.getEntries)
-.post(JournalController.insertEntry);
+app.route("/bullet-journal").post(JournalController.insertEntry);
+
+app.route("/bullet-journal/:email").get(JournalController.getEntries);
+
 // app.route('/diary')
 // .get(DiaryController.getAllNotes)
 // .post(DiaryController.createNote);

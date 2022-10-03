@@ -10,16 +10,22 @@ export async function insertEntry(req: Request, res: Response) {
   console.log(usuario);
   
   
-  // const resp : any= await JournalService.insertEntry(
-  //   req.body.notas,
-  //   usuario,
-  //   req.body.seguimientoDiario,
-  //   req.body.proyectoSemanal,
-  //   req.body.fecha
-  // );
-  res.status(201).json(response);
+  const resp : any= await JournalService.insertEntry(
+    req.body.notas,
+    req.body.user,
+    req.body.seguimientoDiario,
+    req.body.proyectoSemanal,
+    req.body.fecha
+  );
+  res.status(201).json(resp);
 }
 
-export function getEntries(req: Request, res: Response) {
-  throw new Error("Function not implemented.");
+export async function getEntries(req: Request, res: Response) {
+  console.log('getEntries');
+  
+  
+  const resp = await JournalService.getEntries(req.params.email);
+  console.log(resp);
+  
+  res.status(200).json(resp[0]);
 }
