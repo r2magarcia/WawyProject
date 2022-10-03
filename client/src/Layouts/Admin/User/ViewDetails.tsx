@@ -19,7 +19,7 @@ export default class ViewDetails extends Component<props> {
       <>
         <div className="ntdl-container">
           <div className="title-container">
-            <h2>Usuarios</h2>
+            <h2>Historial de Chat por Usuario</h2>
             <Table striped bordered hover size="sm">
               <thead>
                 <tr>
@@ -33,7 +33,7 @@ export default class ViewDetails extends Component<props> {
                   {this.props.users.map((user) => {
                     return (
                       
-                      <tr key={user.idusuario} onClick={() => window.location = `/admin/${user.idusuario}` as unknown as Location}>
+                      <tr key={user.idusuario} onClick={() => window.location = `/admin/user/${user.idusuario}` as unknown as Location}>
                         <td>{user.idusuario}</td>
                         <td>{user.nombre}</td>
                         <td>{user.email}</td>

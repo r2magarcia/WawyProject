@@ -8,9 +8,9 @@ export async function getAllUsers(req: Request, res: Response){
 }
 
 export async function createUser(req: Request, res: Response){
-    console.log(req.body);
     const user: User= new User(req.body.nombre, req.body.email, req.body.contrasena, req.body.active);
-    const response : User = await UserService.inserUser(user.email, user.contrasena, user.active);
+    console.log(user);
+    const response : User = await UserService.insertUser(user.email, user.contrasena, user.active, user.nombre);
     res.status(201).json(response);
 }
 
@@ -26,4 +26,28 @@ export async function getIdByEmail(req: Request, res: Response){
     console.log(users);
     
     res.status(201).json(users);
+}
+
+export async function sendHelp(req: Request, res: Response){
+    const response : any = await UserService.insertHelp(req.params.email);
+    res.status(201).json(response);
+}
+
+export async function logIn(req: Request, res: Response){
+    console.log(req.params);
+    const cred: string[] = req.params.credentials.split("*", 2);
+    const email: string = cred[0];
+    const pass: string = cred[1];
+    const user: Array<User>=await UserService.getUser(email, pass);
+    if (user.length != 0) {
+        res.status(201).json(user);
+    }
+    const admin: Array<User>=await UserService.getAdmin(email, pass);
+    if (admin.length != 0) {
+        res.status(201).json({
+            userType: "Admin"
+        });
+    }else{
+        res.status(403).json(admin);
+    }
 }

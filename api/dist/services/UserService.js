@@ -4,17 +4,26 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var model_1 = __importDefault(require("../models/model"));
-var database = require('../config').database;
+var database = require("../config").database;
 var UserService;
 (function (UserService) {
-    function inserUser(email, contrasena, activo) {
-        var query = "INSERT INTO " + database + ".usuarios (idusuario, email, contrasena, activo) VALUES (NULL, '" + email + "', '" + contrasena + "', '" + activo + "')";
+    function insertUser(email, contrasena, activo, nombre) {
+        var query = "INSERT INTO " + database + ".usuarios (idusuario, email, contrasena, activo, nombre) VALUES (NULL, '" + email + "', '" + contrasena + "', '" + activo + "', '" + nombre + "')";
         var result = model_1.default.execQuery(query);
         return result;
     }
-    UserService.inserUser = inserUser;
+    UserService.insertUser = insertUser;
+    function insertHelp(email) {
+        var date = new Date().toISOString().slice(0, 19).replace('T', ' ');
+        ;
+        var query = "INSERT INTO " + database + ".usuariosporayudar (id, email, notas, ayuda, fecha) VALUES (NULL, '" + email + "', NULL, 1, '" + date + "')";
+        console.log(query);
+        var result = model_1.default.execQuery(query);
+        return result;
+    }
+    UserService.insertHelp = insertHelp;
     function deleteUser(id) {
-        var query = "DELETE FROM " + database + ".usuariost WHERE idusuario = '" + id + "'";
+        var query = "DELETE FROM " + database + ".usuarios WHERE idusuario = '" + id + "'";
         var result = model_1.default.execQuery(query);
         return result;
     }
@@ -26,16 +35,21 @@ var UserService;
     }
     UserService.updateUser = updateUser;
     /*export function setActive(id:number){
-        const query = `UPDATE ${database}.usuarios SET activo = true`
-    }*/
+          const query = `UPDATE ${database}.usuarios SET activo = true`
+      }*/
     function getAllUsers() {
+        console.log("getAllUsers");
         var query = "SELECT * from " + database + ".usuarios";
         var result = model_1.default.execQuery(query);
         return result;
     }
     UserService.getAllUsers = getAllUsers;
     function filterUsers(input) {
-        var query = "SELECT * from " + database + ".usuarios nombre WHERE LIKE '%" + input + "%' OR email LIKE '%" + input + "%;";
+        console.log("filterUsers");
+        var query = "SELECT * from " + database + ".usuarios";
+        if (input)
+            query += " WHERE nombre LIKE '%" + input + "%' OR email LIKE '%" + input + "%';";
+        console.log(query);
         var result = model_1.default.execQuery(query);
         return result;
     }
@@ -53,10 +67,24 @@ var UserService;
     }
     UserService.getUserById = getUserById;
     function getIdByEmail(email) {
-        var query = "SELECT idusuario from " + database + ".usuarios where email = '" + email + "'";
+        var query = "SELECT idusuario from " + database + ".usuarios where email = '" + email + "' LIMIT 1";
         var result = model_1.default.execQuery(query);
         return result;
     }
     UserService.getIdByEmail = getIdByEmail;
+    function getUser(email, pass) {
+        var query = "SELECT idusuario from " + database + ".usuarios where email = '" + email + "' and contrasena = '" + pass + "' LIMIT 1";
+        var result = model_1.default.execQuery(query);
+        // console.log(result);
+        return result;
+    }
+    UserService.getUser = getUser;
+    function getAdmin(email, pass) {
+        var query = "SELECT idusuario from " + database + ".admins where email = '" + email + "' and contrasena = '" + pass + "' LIMIT 1";
+        var result = model_1.default.execQuery(query);
+        // console.log(result);
+        return result;
+    }
+    UserService.getAdmin = getAdmin;
 })(UserService || (UserService = {}));
 exports.default = UserService;

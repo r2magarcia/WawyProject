@@ -4,7 +4,7 @@ import "./DiarioEmociones.css";
 import FullCalendar from "@fullcalendar/react"; // must go before plugins
 import dayGridPlugin from "@fullcalendar/daygrid"; // a plugin!
 import { Card, ListGroup } from "react-bootstrap";
-const { url } = require("../../config");
+import { url } from "../../../config";
 
 interface InputWrapperProps {
   children?: React.ReactNode;
@@ -44,6 +44,7 @@ export default class DiarioEmociones extends Component<props, state> {
       records: [],
       estadosEmocionales: [],
     };
+    if(!this.props.loggedUser) window.location = `/login` as unknown as Location
   }
 
   /**
@@ -148,6 +149,7 @@ export default class DiarioEmociones extends Component<props, state> {
 
   render() {
     return (
+      this.props.loggedUser &&
       <>
         <div className="calendar-container">
           <h2>Diario de emociones</h2>
