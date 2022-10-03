@@ -39,7 +39,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.logIn = exports.getIdByEmail = exports.filterUserBy = exports.createUser = exports.getAllUsers = void 0;
+exports.logIn = exports.sendHelp = exports.getIdByEmail = exports.filterUserBy = exports.createUser = exports.getAllUsers = void 0;
 var UserService_1 = __importDefault(require("../services/UserService"));
 var UserModel_1 = __importDefault(require("../models/UserModel"));
 function getAllUsers(req, res) {
@@ -109,6 +109,21 @@ function getIdByEmail(req, res) {
     });
 }
 exports.getIdByEmail = getIdByEmail;
+function sendHelp(req, res) {
+    return __awaiter(this, void 0, void 0, function () {
+        var response;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, UserService_1.default.insertHelp(req.params.email)];
+                case 1:
+                    response = _a.sent();
+                    res.status(201).json(response);
+                    return [2 /*return*/];
+            }
+        });
+    });
+}
+exports.sendHelp = sendHelp;
 function logIn(req, res) {
     return __awaiter(this, void 0, void 0, function () {
         var cred, email, pass, user, admin;
