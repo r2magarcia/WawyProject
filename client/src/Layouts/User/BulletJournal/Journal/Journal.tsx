@@ -174,10 +174,10 @@ export default function Journal(props: { loggedUser: any }) {
                   {seguimientoMorning.map(
                     (actividad: any, idxActividad: number) => (
                       <>
-                        <div key={idxActividad}>
+                        <div className="proyecto-item" key={idxActividad}>
                           <Form.Control
                             type="text"
-                            placeholder="Readonly input here..."
+                            placeholder="Ingresa el nombre de la actividad"
                             className="inline"
                             value={actividad.name}
                             onChange={(e) =>
@@ -239,10 +239,10 @@ export default function Journal(props: { loggedUser: any }) {
                   {seguimientoAfternoon.map(
                     (actividad: any, idxActividad: number) => (
                       <>
-                        <div key={idxActividad}>
+                        <div className="proyecto-item" key={idxActividad}>
                           <Form.Control
                             type="text"
-                            placeholder="Readonly input here..."
+                            placeholder="Ingresa el nombre de la actividad"
                             className="inline"
                             value={actividad.name}
                             onChange={(e) =>
@@ -301,10 +301,10 @@ export default function Journal(props: { loggedUser: any }) {
 
             <Form.Group>
               <Form.Label>Proyectos Semanales</Form.Label>
-              <div className="proyectos-wrapper">
+              <div className="proyectos-wrapper task-category">
                 {proyectoSemanal.map((proyecto: any, idx: number) => (
                   <>
-                    <div key={idx}>
+                    <div className="proyecto-item" key={idx}>
                       <Form.Check
                         inline
                         type="checkbox"
@@ -315,7 +315,7 @@ export default function Journal(props: { loggedUser: any }) {
                       />
                       <Form.Control
                         type="text"
-                        placeholder="Readonly input here..."
+                        placeholder="Ingresa el nombre de la actividad"
                         className="inline"
                         value={proyecto.name}
                         onChange={(e) => handleChangeProyectoNombre(e, idx)}
@@ -339,7 +339,7 @@ export default function Journal(props: { loggedUser: any }) {
                 </Button>
               </div>
             </Form.Group>
-            <Button variant="primary" onClick={handleSubmit}>
+            <Button  className="submit-journal" variant="primary" onClick={handleSubmit}>
               Guardar
             </Button>
           </Form>
