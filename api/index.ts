@@ -72,11 +72,12 @@ app.route("/question").get(QuestionController.getAllQuestions);
 
 app.route("/journal").post(JournalController.insertEntry);
 
-app.route("/diagnostico").post(DiagnosticoController.insertEntry);
+app.route("/diagnostico").post(DiagnosticoController.insertEntry).get(DiagnosticoController.getAllDiagnosis);
 
 app.route("/bullet-journal").post(JournalController.insertEntry);
 
 app.route("/bullet-journal/:email").get(JournalController.getEntries);
+app.route("/assignDiagnosis").get(DiagnosticoController.asignDiagnosis);
 
 // app.route('/diary')
 // .get(DiaryController.getAllNotes)

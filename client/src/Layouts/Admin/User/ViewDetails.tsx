@@ -19,7 +19,7 @@ export default class ViewDetails extends Component<props> {
       <>
         <div className="ntdl-container">
           <div className="title-container">
-            <h2>Usuarios</h2>
+            <h2>Historial de Chat por Usuario</h2>
             <Table striped bordered hover size="sm">
               <thead>
                 <tr>

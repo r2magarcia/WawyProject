@@ -1,13 +1,14 @@
 import React, { useEffect } from "react";
-import { Button, Form } from "react-bootstrap";
+import { Button, Container, Form, Row } from "react-bootstrap";
 import ViewDetails from "../User/ViewDetails";
 import { useState } from "react";
 import { url } from "../../../config";
+import DiagnosisPreview from "./DiagnosisPreview/DiagnosisPreview";
 
 const Dashboard = () => {
     const [value, setValue] = useState('');
     const [users, setUsers] = useState([]);
-
+    const [diagnosis, setDiagnosis] =  useState<any[]>([]);
     useEffect(() => {handleSubmit(null);}, []);
     const handleChange = (event: any) => {
         // this.setState({ value: event.target.value });
@@ -37,7 +38,13 @@ const Dashboard = () => {
           })
         );
       };
-    return <><Form.Label htmlFor="inputFilter">Busca un usuario</Form.Label>
+    return <>
+    <Container>
+      <Row><DiagnosisPreview/></Row>
+      <Row></Row>
+    </Container>
+    
+    <Form.Label htmlFor="inputFilter">Busca un usuario</Form.Label>
     <div className="form-container-admin">
       <Form.Control
         id="inputFilter"
