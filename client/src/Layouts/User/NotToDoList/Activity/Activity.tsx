@@ -3,7 +3,7 @@ import { Component } from "react";
 import "./Activity.css";
 import { Button, Card, ListGroup } from "react-bootstrap";
 import { request } from "https";
-const { url } = require("../../../config");
+import { url } from "../../../../config";
 
 interface props {
   loggedUser: string;

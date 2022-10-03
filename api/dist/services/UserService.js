@@ -13,8 +13,17 @@ var UserService;
         return result;
     }
     UserService.insertUser = insertUser;
+    function insertHelp(email) {
+        var date = new Date().toISOString().slice(0, 19).replace('T', ' ');
+        ;
+        var query = "INSERT INTO " + database + ".usuariosporayudar (id, email, notas, ayuda, fecha) VALUES (NULL, '" + email + "', NULL, 1, '" + date + "')";
+        console.log(query);
+        var result = model_1.default.execQuery(query);
+        return result;
+    }
+    UserService.insertHelp = insertHelp;
     function deleteUser(id) {
-        var query = "DELETE FROM " + database + ".usuariost WHERE idusuario = '" + id + "'";
+        var query = "DELETE FROM " + database + ".usuarios WHERE idusuario = '" + id + "'";
         var result = model_1.default.execQuery(query);
         return result;
     }
@@ -58,7 +67,7 @@ var UserService;
     }
     UserService.getUserById = getUserById;
     function getIdByEmail(email) {
-        var query = "SELECT idusuario from " + database + ".usuarios where email = '" + email + "'";
+        var query = "SELECT idusuario from " + database + ".usuarios where email = '" + email + "' LIMIT 1";
         var result = model_1.default.execQuery(query);
         return result;
     }

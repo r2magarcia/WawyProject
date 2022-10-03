@@ -52,6 +52,8 @@ export default class Register extends Component<props, state> {
         };
 
         let eventRecords = this.state.records;
+        console.log();
+        
         // eventRecords.push(eventToPush);
         console.log(eventRecords);
 
@@ -73,10 +75,11 @@ export default class Register extends Component<props, state> {
         fetch(request).then(async (resp) => {
             console.log(resp.status);
             if (resp.status == 201){
+                localStorage.setItem('email', this.currentUser);
                 window.location = `/` as unknown as Location;
             }
         }
-        );
+        ); 
     }
 
     render() {

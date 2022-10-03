@@ -7,6 +7,9 @@ import * as UserHasListController from "./controllers/User_NotToDoListController
 import * as DiaryController from "./controllers/DairyController";
 import * as EstadoEController from "./controllers/EstadosEController";
 import * as AnswerController from "./controllers/AnswerController";
+import * as QuestionController from "./controllers/QuestionController";
+import * as JournalController from "./controllers/JournalController";
+import * as DiagnosticoController from "./controllers/DiagnosticoController";
 
 const app = express();
 const { port } = require("./config");
@@ -36,6 +39,8 @@ app
 
 app.route("/user/filterBy/:filterBy").get(UserController.filterUserBy);
 
+app.route("/user/helpMe/:email").post(UserController.sendHelp);
+
 /**
  * Not to do list for each user
  */
@@ -62,6 +67,17 @@ app.route("/answer/byUser/:id").get(AnswerController.filterAnswerByUser);
 app.route("/login/:credentials").get(UserController.logIn);
 
 app.route("/register").post(UserController.createUser);
+
+app.route("/question").get(QuestionController.getAllQuestions);
+
+app.route("/journal").post(JournalController.insertEntry);
+
+app.route("/diagnostico").post(DiagnosticoController.insertEntry).get(DiagnosticoController.getAllDiagnosis);
+
+app.route("/bullet-journal").post(JournalController.insertEntry);
+
+app.route("/bullet-journal/:email").get(JournalController.getEntries);
+app.route("/assignDiagnosis").get(DiagnosticoController.asignDiagnosis);
 
 // app.route('/diary')
 // .get(DiaryController.getAllNotes)

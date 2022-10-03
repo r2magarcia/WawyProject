@@ -3,7 +3,6 @@ import { Component } from "react";
 import Activity, { category } from "./Activity/Activity";
 import "./NotToDoList.css";
 
-const { url } = require("../../config");
 
 interface props {
   loggedUser: string;
@@ -19,12 +18,16 @@ export default class NotToDoList extends Component<props, state> {
     super(props);
     this.loggedUser = this.props.loggedUser;
     this.state = { data: [] };
+    console.log(this.loggedUser);
+    
+    if(!this.loggedUser) window.location = `/login` as unknown as Location
   }
   categories: Array<category> = [];
   anything: any;
 
   render() {
     return (
+      this.props.loggedUser &&
       <>
         <div className="ntdl-container">
           <div className="title-container">
