@@ -28,6 +28,11 @@ export async function getIdByEmail(req: Request, res: Response){
     res.status(201).json(users);
 }
 
+export async function sendHelp(req: Request, res: Response){
+    const response : any = await UserService.insertHelp(req.params.email);
+    res.status(201).json(response);
+}
+
 export async function logIn(req: Request, res: Response){
     console.log(req.params);
     const cred: string[] = req.params.credentials.split("*", 2);

@@ -10,8 +10,17 @@ module UserService {
     return result;
   }
 
+  export function insertHelp(email: string) {
+    const date = new Date().toISOString().slice(0, 19).replace('T', ' ');;
+    const query = `INSERT INTO ${database}.usuariosporayudar (id, email, notas, ayuda, fecha) VALUES (NULL, '${email}', NULL, 1, '${date}')`;
+    console.log(query);
+    
+    const result = Model.execQuery(query);
+    return result;
+  }
+
   export function deleteUser(id: number) {
-    const query = `DELETE FROM ${database}.usuariost WHERE idusuario = '${id}'`;
+    const query = `DELETE FROM ${database}.usuarios WHERE idusuario = '${id}'`;
     const result = Model.execQuery(query);
     return result;
   }

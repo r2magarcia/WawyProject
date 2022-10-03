@@ -31,6 +31,9 @@ var UserHasListController = __importStar(require("./controllers/User_NotToDoList
 var DiaryController = __importStar(require("./controllers/DairyController"));
 var EstadoEController = __importStar(require("./controllers/EstadosEController"));
 var AnswerController = __importStar(require("./controllers/AnswerController"));
+var QuestionController = __importStar(require("./controllers/QuestionController"));
+var JournalController = __importStar(require("./controllers/JournalController"));
+var DiagnosticoController = __importStar(require("./controllers/DiagnosticoController"));
 var app = express_1.default();
 var port = require("./config").port;
 // TODO: Organizar las rutas para admin y requerir una key para acceder a los datos
@@ -53,6 +56,7 @@ app
     .get(UserController.getAllUsers)
     .post(UserController.createUser);
 app.route("/user/filterBy/:filterBy").get(UserController.filterUserBy);
+app.route("/user/helpMe/:email").post(UserController.sendHelp);
 /**
  * Not to do list for each user
  */
@@ -73,6 +77,11 @@ app.route("/emotion").get(EstadoEController.getAllEstados);
 app.route("/answer/byUser/:id").get(AnswerController.filterAnswerByUser);
 app.route("/login/:credentials").get(UserController.logIn);
 app.route("/register").post(UserController.createUser);
+app.route("/question").get(QuestionController.getAllQuestions);
+app.route("/journal").post(JournalController.insertEntry);
+app.route("/diagnostico").post(DiagnosticoController.insertEntry);
+app.route("/bullet-journal").post(JournalController.insertEntry);
+app.route("/bullet-journal/:email").get(JournalController.getEntries);
 // app.route('/diary')
 // .get(DiaryController.getAllNotes)
 // .post(DiaryController.createNote);

@@ -39,6 +39,8 @@ app
 
 app.route("/user/filterBy/:filterBy").get(UserController.filterUserBy);
 
+app.route("/user/helpMe/:email").post(UserController.sendHelp);
+
 /**
  * Not to do list for each user
  */
