@@ -4,8 +4,8 @@ export default class singleton{
 
     private static dbc: any = mysql.createConnection({
         host: 'localhost',
-        user: 'root',
-        password: ''
+        user: 'u676173880_wawyroot',
+        password: 'Wawydbpassword2022'
     }); 
 
     private constructor(){
