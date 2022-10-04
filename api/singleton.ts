@@ -3,9 +3,9 @@ const mysql = require('mysql');
 export default class singleton{
 
     private static dbc: any = mysql.createConnection({
-        host: '82.180.130.26',
+        host: '82.180.153.188',
         user: 'u676173880_wawyroot',
-        password: 'Wawydbpassword2022'
+        password: 'passDBWawy2022'
     }); 
 
     private constructor(){
