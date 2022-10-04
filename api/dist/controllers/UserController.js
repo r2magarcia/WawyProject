@@ -137,11 +137,11 @@ function logIn(req, res) {
                     return [4 /*yield*/, UserService_1.default.getUser(email, pass)];
                 case 1:
                     user = _a.sent();
-                    if (user.length != 0) {
-                        res.status(201).json(user);
-                    }
-                    return [4 /*yield*/, UserService_1.default.getAdmin(email, pass)];
-                case 2:
+                    if (!(user.length != 0)) return [3 /*break*/, 2];
+                    res.status(201).json(user);
+                    return [3 /*break*/, 4];
+                case 2: return [4 /*yield*/, UserService_1.default.getAdmin(email, pass)];
+                case 3:
                     admin = _a.sent();
                     if (admin.length != 0) {
                         res.status(201).json({
@@ -151,7 +151,8 @@ function logIn(req, res) {
                     else {
                         res.status(403).json(admin);
                     }
-                    return [2 /*return*/];
+                    _a.label = 4;
+                case 4: return [2 /*return*/];
             }
         });
     });

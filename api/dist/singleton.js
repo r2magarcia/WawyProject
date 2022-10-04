@@ -12,8 +12,8 @@ var singleton = /** @class */ (function () {
     };
     singleton.dbc = mysql.createConnection({
         host: 'localhost',
-        user: 'root',
-        password: ''
+        user: 'u676173880_wawyroot',
+        password: 'Wawydbpassword2022'
     });
     return singleton;
 }());

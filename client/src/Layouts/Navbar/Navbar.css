@@ -13,3 +13,11 @@
     font-family: 'B612 Mono', monospace;
 }
 
+
+.dropdown-basic{
+    background-color: #de773c;
+    /* color: #de773c; */
+}
+.dropdown-basic:hover{
+    background-color: #de773c;
+}
