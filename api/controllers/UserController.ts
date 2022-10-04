@@ -41,13 +41,15 @@ export async function logIn(req: Request, res: Response){
     const user: Array<User>=await UserService.getUser(email, pass);
     if (user.length != 0) {
         res.status(201).json(user);
+    } else {
+        const admin: Array<User>=await UserService.getAdmin(email, pass);
+        if (admin.length != 0) {
+            res.status(201).json({
+                userType: "Admin"
+            });
+        }else{
+            res.status(403).json(admin);
+        }
     }
-    const admin: Array<User>=await UserService.getAdmin(email, pass);
-    if (admin.length != 0) {
-        res.status(201).json({
-            userType: "Admin"
-        });
-    }else{
-        res.status(403).json(admin);
-    }
+
 }

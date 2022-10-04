@@ -1,22 +1,8 @@
 import React from "react";
 import { Component } from "react";
 import "./BulletJournal.css";
-import {
-  Card,
-  Button,
-  Form,
-  Row,
-  Col,
-  Container,
-  Pagination,
-  Accordion,
-  Carousel,
-} from "react-bootstrap";
 import Journal from "./Journal/Journal";
-import FullCalendar from "@fullcalendar/react";
-import dayGridPlugin from "@fullcalendar/daygrid";
-import { stringify } from "querystring";
-import FormCheckInput from "react-bootstrap/esm/FormCheckInput";
+
 import { url } from "../../../config";
 
 interface state {

@@ -1,8 +1,5 @@
-@import 'react-big-calendar/lib/sass/styles';
-
 .calendar{
     max-width: 600px;
-    
 }
 
 calendar::first-letter {
@@ -28,7 +25,6 @@ calendar::first-letter {
 
 .calendar-container{
     overflow-x: hidden !important;
-    margin: 20px;
 }
 .fc-event-time{
     color: gray;
@@ -106,3 +102,4 @@ calendar::first-letter {
     flex-flow: row wrap;
     justify-content: space-between;
 }
+@import 'react-big-calendar/lib/sass/styles';
