@@ -6,7 +6,7 @@ const { database } = require('../config');
 module AnswerService {
 
     export function insertAnswer(pregunta: string, respuesta:string, fecha:Date, idUser:number){
-        const query = `INSERT INTO ${database}.respuestas (id_respuesta, pregunta, respuesta, fecha, usuarios_idusuario) VALUES (NULL, '${pregunta}', '${respuesta}', '${fecha}', '${idUser}')`;
+        const query = `INSERT INTO ${database}.respuestas (id_respuesta, pregunta, respuesta, fecha, usuarios_idusuario) VALUES (NULL, '${pregunta}', '${respuesta}', '${String(fecha).slice(0, 19).replace('T', ' ')}', '${idUser}')`;
         const result = Model.execQuery(query);
         return result;
     }

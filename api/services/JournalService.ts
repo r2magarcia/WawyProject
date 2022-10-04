@@ -15,7 +15,7 @@ module JournalService {
       seguimientoDiario
     )}', proyectoSemanal = '${JSON.stringify(
       proyectoSemanal
-    )}', fecha = '${fecha}' WHERE idUsuario IN (SELECT idusuario FROM ${database}.usuarios WHERE email='${email}')`;
+    )}', fecha = '${String(fecha).slice(0, 19).replace('T', ' ')}' WHERE idUsuario IN (SELECT idusuario FROM ${database}.usuarios WHERE email='${email}')`;
     console.log(query);
     const result = Model.execQuery(query);
     // console.log(email);
@@ -31,7 +31,7 @@ module JournalService {
   ) {
     
     const query = `INSERT INTO ${database}.bulletjournal (notas,seguimientoDiario, proyectoSemanal, fecha, idUsuario) 
-    VALUES('${notas}','${JSON.stringify(seguimientoDiario)}','${JSON.stringify(proyectoSemanal)}', '${fecha}',
+    VALUES('${notas}','${JSON.stringify(seguimientoDiario)}','${JSON.stringify(proyectoSemanal)}', '${String(fecha).slice(0, 19).replace('T', ' ')}',
      (SELECT idusuario FROM ${database}.usuarios WHERE email='${email}'))`;
      console.log(query);
      
