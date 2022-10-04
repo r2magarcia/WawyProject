@@ -2,12 +2,16 @@
 
 
 #inlineFrameExample{
-  border: 2px solid green;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   width: 400px;
   height: 80%;
   position: fixed;
   bottom: 20px;
   right: 20px;
+}
+
+.chatbot-container-embed{
+  z-index: 20;
 }
 
 @media (max-width: 800px) {
