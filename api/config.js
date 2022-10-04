@@ -1,4 +1,4 @@
 module.exports = {
     port: 3001,
-    database: 'wawy',
+    database: 'u676173880_wawy',
 };
