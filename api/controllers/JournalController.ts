@@ -6,10 +6,13 @@ import UserService from "../services/UserService";
 export async function insertEntry(req: Request, res: Response) {
   console.log();
 
-  const records: any = await JournalService.getEntries(req.body.email).then;
+  try {
+    const records: any = await JournalService.getEntries(req.body.email).then;
+  console.log('records');
+  
   console.log(records);
   
-  if(records.length > 0) {
+  if(records && records?.length > 0) {
     const resp : any= await JournalService.updateEntry(
       req.body.notas,
       req.body.user,
@@ -28,10 +31,10 @@ export async function insertEntry(req: Request, res: Response) {
     );
     res.status(201).json(resp);
   }
-
-  
-  
-
+  } catch (error) {
+    console.log(error);
+    res.status(400);
+  }
 }
 
 export async function getEntries(req: Request, res: Response) {
