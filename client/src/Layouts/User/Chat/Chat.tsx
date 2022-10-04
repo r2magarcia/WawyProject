@@ -8,13 +8,13 @@ export default class Chat extends Component {
   render() {
     return (
       <div className="chatbot-container-embed">
-        {/* <iframe
+        <iframe
           id="inlineFrameExample"
           title="Inline Frame Example"
           width="300"
           height="200"
           src="http://www.terapiachat.cl/chatbot/"
-        ></iframe> */}
+        ></iframe>
       </div>
     );
   }

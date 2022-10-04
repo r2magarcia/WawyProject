@@ -1,3 +1,3 @@
 module.exports = {
-    url: 'http://localhost:3001',
+    url: 'http://wawyserver.vps:3001',
 }
