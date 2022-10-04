@@ -16,6 +16,7 @@ module JournalService {
     )}', proyectoSemanal = '${JSON.stringify(
       proyectoSemanal
     )}', fecha = '${fecha}' WHERE idUsuario IN (SELECT idusuario FROM ${database}.usuarios WHERE email='${email}')`;
+    console.log(query);
     const result = Model.execQuery(query);
     // console.log(email);
 

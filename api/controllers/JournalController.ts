@@ -9,7 +9,7 @@ export async function insertEntry(req: Request, res: Response) {
   const records: any = await JournalService.getEntries(req.body.email).then;
   console.log(records);
   
-  if(records) {
+  if(records.length > 0) {
     const resp : any= await JournalService.updateEntry(
       req.body.notas,
       req.body.user,
