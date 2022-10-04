@@ -6,7 +6,7 @@ import UserService from "../services/UserService";
 export async function insertEntry(req: Request, res: Response) {
 
   try {
-    const records: any = await JournalService.getEntries(req.body.email);
+    const records: any = await JournalService.getEntries(req.body.user);
     console.log("records");
 
     console.log(records);

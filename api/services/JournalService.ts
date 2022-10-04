@@ -31,7 +31,7 @@ module JournalService {
   ) {
     
     const query = `INSERT INTO ${database}.bulletjournal (notas,seguimientoDiario, proyectoSemanal, fecha, idUsuario) 
-    VALUES('${notas}','${JSON.stringify(  seguimientoDiario)}','${JSON.stringify(  proyectoSemanal)}', '${fecha}',
+    VALUES('${notas}','${JSON.stringify(seguimientoDiario)}','${JSON.stringify(proyectoSemanal)}', '${fecha}',
      (SELECT idusuario FROM ${database}.usuarios WHERE email='${email}'))`;
      console.log(query);
      
