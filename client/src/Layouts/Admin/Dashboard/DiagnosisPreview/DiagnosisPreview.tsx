@@ -7,7 +7,7 @@ export default function DiagnosisPrview() {
   const [diagnosis, setDiagnosis] = useState<any[]>([]);
   
   const makeRequest = () => {
-    const content = new Request(`${url}/getAllDiagnosis`, {
+    const content = new Request(`${url}/diagnostico`, {
       method: "GET",
       headers: {
         Accept: "application/json",
