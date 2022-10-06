@@ -1,9 +1,11 @@
 import React, { useEffect } from "react";
-import { Button, Container, Form, Row } from "react-bootstrap";
+import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import ViewDetails from "../User/ViewDetails";
 import { useState } from "react";
 import { url } from "../../../config";
 import DiagnosisPreview from "./DiagnosisPreview/DiagnosisPreview";
+import Alerta from "./Alerta/Alerta";
+import "./Dashboard.css";
 
 const Dashboard = () => {
     const [value, setValue] = useState('');
@@ -39,9 +41,14 @@ const Dashboard = () => {
         );
       };
     return <>
-    <Container>
-      <Row><DiagnosisPreview/></Row>
-      <Row></Row>
+    <Container className="padding-conatiner">
+    <Container fluid className="listas">
+    <Row >
+
+      <Col className="listas"><DiagnosisPreview/></Col>
+      <Col className="listas"><Alerta/></Col>
+      </Row>
+
     </Container>
     
     <Form.Label htmlFor="inputFilter">Busca un usuario</Form.Label>
@@ -65,7 +72,9 @@ const Dashboard = () => {
     </Form.Text>
 
     <ViewDetails users={users} />
+    </Container>
     </>
+    
 }
 
 export default Dashboard;

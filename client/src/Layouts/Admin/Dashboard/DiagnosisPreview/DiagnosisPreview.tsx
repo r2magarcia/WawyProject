@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Button, Table } from "react-bootstrap";
 import { url } from "../../../../config";
+import "../Dashboard.css";
+
 export default function DiagnosisPrview() {
   const [diagnosis, setDiagnosis] = useState<any[]>([]);
+  
   const makeRequest = () => {
     const content = new Request(`${url}/getAllDiagnosis`, {
       method: "GET",
@@ -12,7 +15,7 @@ export default function DiagnosisPrview() {
     });
     fetch(content).then((resp) =>
       resp.json().then((body) => {
-        console.log(body);
+        // console.log(body);
 
         
       })
@@ -28,7 +31,7 @@ export default function DiagnosisPrview() {
       });
       fetch(content).then((resp) =>
         resp.json().then((body) => {
-          console.log(body);
+          // console.log(body);
   
           setDiagnosis(body);
         })
@@ -37,7 +40,8 @@ export default function DiagnosisPrview() {
   },[])
   return (
     <>
-      <Table bordered hover>
+    <h2 className="fixed-top-title">Diagnosticos Generados</h2>
+      <Table bordered hover className="listas">
         <thead>
           <tr>
             <th>#</th>
@@ -57,7 +61,7 @@ export default function DiagnosisPrview() {
           ))}
         </tbody>
       </Table>
-      <Button onClick={makeRequest}>Buscar Diagnosis</Button>
+      <Button  className="fixed-bottom-diag" onClick={makeRequest}>Buscar Diagnosis</Button>
     </>
   );
 }
