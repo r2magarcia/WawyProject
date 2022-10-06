@@ -9,6 +9,7 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Offcanvas from 'react-bootstrap/Offcanvas';
+import Dropdown from 'react-bootstrap/Dropdown';
 import "./Navbar.css"
 const { url } = require("../../config");
 
@@ -24,7 +25,7 @@ export default class NavBar extends Component<props> {
       email: window.localStorage.getItem('email')
     }
     console.log(data);
-    if(data.email){
+    if (data.email) {
       this.queryToDatabase(data.email);
     }
   }
@@ -38,10 +39,10 @@ export default class NavBar extends Component<props> {
       },
     });
 
-    fetch(request).then(async(resp) =>{
-      if(resp.status == 201){
+    fetch(request).then(async (resp) => {
+      if (resp.status == 201) {
         console.log("La peticion de ayuda ha sido creada");
-        
+
       }
     })
   }
@@ -60,13 +61,25 @@ export default class NavBar extends Component<props> {
               </Nav.Link>
             ))}
           </Nav> */}
-          <NavDropdown title="Actividades">
+          <Dropdown>
+            <Dropdown.Toggle className="dropdown-basic">
+              Actividades
+            </Dropdown.Toggle>
+            <Dropdown.Menu>
+              {this.props.items.map((item, idx) => (
+                <Dropdown.Item href={item.link} key={idx}>
+                  {item.title}
+                </Dropdown.Item>
+              ))}
+            </Dropdown.Menu>
+          </Dropdown>
+          {/* <NavDropdown title="Actividades">
             {this.props.items.map((item, idx) => (
               <NavDropdown.Item href={item.link} key={idx}>
                 {item.title}
               </NavDropdown.Item>
             ))}
-          </NavDropdown>
+          </NavDropdown> */}
           <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`} />
           <Navbar.Offcanvas
             id={`offcanvasNavbar-expand-${expand}`}

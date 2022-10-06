@@ -12,7 +12,7 @@ export default function Journal(props: { loggedUser: any }) {
     { name: "", check: [false, false, false, false, false, false, false] },
   ]);
   const [proyectoSemanal, setProyectoSemanal] = useState<any[]>([
-    { name: "test", status: true },
+    { name: "", status: false },
   ]);
   const [fecha, setFecha] = useState(new Date().toJSON().slice(0, 10));
 

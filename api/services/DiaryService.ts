@@ -6,9 +6,9 @@ const { database } = require('../config');
 module DiaryService {
 
     export function insertDiary(fecha:Date, idEmocion:number, email:string){
-        const query = `INSERT INTO ${database}.diarioemociones (id, fecha, idUsuario, idEmocion) VALUES (NULL, '${fecha}', (SELECT idusuario FROM ${database}.usuarios WHERE email='${email}' LIMIT 1), '${idEmocion}')`;
+        const query = `INSERT INTO ${database}.diarioemociones (id, fecha, idUsuario, idEmocion) VALUES (NULL, '${String(fecha).slice(0, 19).replace('T', ' ')}', (SELECT idusuario FROM ${database}.usuarios WHERE email='${email}' LIMIT 1), '${idEmocion}')`;
         const result = Model.execQuery(query);
-        console.log(email);
+        console.log(query);
         
         return result;
     }
@@ -29,7 +29,7 @@ module DiaryService {
     }
 
     export function updateDiary(id:number, fecha:Date){
-        const query = `UPDATE ${database}.diarioemociones SET fecha = '${fecha}' WHERE id = '${id}'`;
+        const query = `UPDATE ${database}.diarioemociones SET fecha = '${String(fecha).slice(0, 19).replace('T', ' ')}' WHERE id = '${id}'`;
         const result = Model.execQuery(query);
         return result;
     }

@@ -3,18 +3,38 @@ import Model from "../models/model";
 const { database } = require("../config");
 
 module JournalService {
-  export function insertEntry(
+  export function updateEntry(
     notas: string,
     email: string,
     seguimientoDiario: string,
     proyectoSemanal: string,
     fecha: Date
   ) {
+    
     const query = `UPDATE ${database}.bulletjournal SET  notas = '${notas}', seguimientoDiario = '${JSON.stringify(
       seguimientoDiario
     )}', proyectoSemanal = '${JSON.stringify(
       proyectoSemanal
-    )}', fecha = '${fecha}' WHERE idUsuario IN (SELECT idusuario FROM ${database}.usuarios WHERE email='${email}')`;
+    )}', fecha = '${String(fecha).slice(0, 19).replace('T', ' ')}' WHERE idUsuario IN (SELECT idusuario FROM ${database}.usuarios WHERE email='${email}')`;
+    console.log(query);
+    const result = Model.execQuery(query);
+    // console.log(email);
+
+    return result;
+  }
+  export function createEntry(
+    notas: string,
+    email: string,
+    seguimientoDiario: string,
+    proyectoSemanal: string,
+    fecha: Date
+  ) {
+    
+    const query = `INSERT INTO ${database}.bulletjournal (notas,seguimientoDiario, proyectoSemanal, fecha, idUsuario) 
+    VALUES('${notas}','${JSON.stringify(seguimientoDiario)}','${JSON.stringify(proyectoSemanal)}', '${String(fecha).slice(0, 19).replace('T', ' ')}',
+     (SELECT idusuario FROM ${database}.usuarios WHERE email='${email}'))`;
+     console.log(query);
+     
     const result = Model.execQuery(query);
     // console.log(email);
 
