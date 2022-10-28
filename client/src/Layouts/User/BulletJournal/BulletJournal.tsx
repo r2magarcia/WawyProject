@@ -24,6 +24,8 @@ export default class BulletJournal extends Component<props, state> {
     this.state = {
       page: [],
     };
+    if (this.props.loggedUser == null)
+      window.location = `/login` as unknown as Location;
   }
 
   /**
@@ -81,6 +83,10 @@ export default class BulletJournal extends Component<props, state> {
   }
 
   render() {
+    var session = localStorage.getItem("email");
+    if(!session){
+      window.location = `/login` as unknown as Location;
+    };
     return (
       <>
         <Journal loggedUser={this.props.loggedUser}></Journal>
