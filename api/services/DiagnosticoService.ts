@@ -37,7 +37,7 @@ module DiagnosticoService {
   }
 
   export function getDiagnosticosForUsers() {
-    const query = `SELECT usuarios.nombre as user, diagnostico.nombre as diagnostico, usuarios_has_diagnostico.notas as notas FROM ${database}.usuarios_has_diagnostico INNER JOIN ${database}.usuarios INNER JOIN ${database}.diagnostico  GROUP BY usuarios.idusuario, usuarios_has_diagnostico.diagnostico_id;`;
+    const query = `SELECT usuarios.nombre as user, diagnostico.nombre as diagnostico, usuarios_has_diagnostico.notas as notas FROM ${database}.usuarios_has_diagnostico JOIN ${database}.usuarios ON usuarios_has_diagnostico.usuarios_idusuario = usuarios.idusuario JOIN ${database}.diagnostico ON diagnostico.id = usuarios_has_diagnostico.diagnostico_id GROUP BY usuarios.idusuario, usuarios_has_diagnostico.diagnostico_id;`;
     console.log(query);
     
     const result = Model.execQuery(query);

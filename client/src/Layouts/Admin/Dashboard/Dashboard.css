@@ -1,3 +1,8 @@
 .listas{
-    
+    max-height: 30em !important;
+    overflow-y: auto !important;
+}
+
+.padding-conatiner{
+    padding-top: 20px;
 }

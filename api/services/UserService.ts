@@ -19,6 +19,14 @@ module UserService {
     return result;
   }
 
+  export function getUserProfesionalRequired() {
+    const query = `SELECT usuariosporayudar.id as id, usuarios.nombre, usuariosporayudar.email as email, usuariosporayudar.notas as notas, usuariosporayudar.fecha FROM ${database}.usuariosporayudar JOIN ${database}.usuarios ON usuarios.email = usuariosporayudar.email WHERE usuariosporayudar.ayuda=1 ORDER BY usuariosporayudar.fecha`;
+    console.log(query);
+    
+    const result = Model.execQuery(query);
+    return result;
+  }
+
   export function deleteUser(id: number) {
     const query = `DELETE FROM ${database}.usuarios WHERE idusuario = '${id}'`;
     const result = Model.execQuery(query);

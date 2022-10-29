@@ -58,7 +58,7 @@ export default class DiarioEmociones extends Component<props, state> {
       return { style: newStyle };
     };
 
-    if (!this.props.loggedUser)
+    if (this.props.loggedUser == null)
       window.location = `/login` as unknown as Location;
   }
 
@@ -155,6 +155,10 @@ export default class DiarioEmociones extends Component<props, state> {
   }
 
   render() {
+    var session = localStorage.getItem("email");
+    if(!session){
+      window.location = `/login` as unknown as Location;
+    };
     return (
       this.props.loggedUser && (
         <>

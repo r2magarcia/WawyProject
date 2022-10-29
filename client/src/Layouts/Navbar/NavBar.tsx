@@ -97,7 +97,7 @@ export default class NavBar extends Component<props> {
               <Nav className="justify-content-end flex-grow-1 pe-3">
                 <Nav.Link href="./Login" onClick={() => { localStorage.clear(); }}>LogOut</Nav.Link>
                 {/* <NavDropdown.Divider></NavDropdown.Divider> */}
-                <Nav.Link href="#action2" onClick={(e) => this.handleQuery(e)}>Ayuda profesional</Nav.Link>
+                <Nav.Link href="" onClick={(e) => this.handleQuery(e)}>Ayuda profesional</Nav.Link>
               </Nav>
             </Offcanvas.Body>
           </Navbar.Offcanvas>

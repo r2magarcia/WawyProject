@@ -1,8 +1,22 @@
 import React from "react";
 import { Component } from "react";
 
-export default class Home extends Component {
+interface props {
+  loggedUser: string;
+}
+export default class Home extends Component<props> {
+
+  constructor(props: props | Readonly<props>) {
+    super(props);
+    if (this.props.loggedUser == null)
+      window.location = `/login` as unknown as Location;
+  }
+  
   render() {
+    var session = localStorage.getItem("email");
+    if(!session){
+      window.location = `/login` as unknown as Location;
+    };
     return (
       <>
         <div className="ntdl-container">
