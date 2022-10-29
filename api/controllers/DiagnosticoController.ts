@@ -2,6 +2,7 @@ import { Request, Response, response } from "express";
 import DiagnosticoService from "../services/DiagnosticoService";
 import PreguntaService from "../services/PreguntaService";
 import QuestionService from "../services/QuestionService";
+const { database } = require("../config");
 
 export async function insertEntry(req: Request, res: Response) {
   console.log("diagnostico----------------------------------------------");
@@ -23,7 +24,7 @@ export async function insertEntry(req: Request, res: Response) {
     });
 
   preguntas2.forEach((element: any) => {
-    query += `(SELECT idusuario FROM respuestas WHERE pregunta = \\'${element.pregunta}\\' AND respuesta = \\'${element.respuesta}\\') INTERSECT `;
+    query += `(SELECT idusuario FROM ${database}.respuestas WHERE pregunta = \\'${element.pregunta}\\' AND respuesta = \\'${element.respuesta}\\') INTERSECT `;
   });
 
   query = query.slice(0, -10);
