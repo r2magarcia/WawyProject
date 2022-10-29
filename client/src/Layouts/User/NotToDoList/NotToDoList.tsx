@@ -26,6 +26,10 @@ export default class NotToDoList extends Component<props, state> {
   anything: any;
 
   render() {
+    var session = localStorage.getItem("email");
+    if(!session){
+      window.location = `/login` as unknown as Location;
+    };
     return (
       this.props.loggedUser &&
       <>

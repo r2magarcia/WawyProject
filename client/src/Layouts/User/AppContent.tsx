@@ -37,7 +37,7 @@ export default class AppContent extends Component {
                   element={<NotToDoList loggedUser={this.email} />}
                 ></Route>
                 <Route path="/"
-                  element={<Home />}
+                  element={<Home loggedUser={this.email} />}
                 ></Route>
                 <Route
                   path="/diario-de-emociones"
