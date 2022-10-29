@@ -89,3 +89,5 @@ app.route("/get-profesional-required").get(UserController.getProfessionalRequire
 app.listen(port, () => {
   console.log(`Node JS Server started at port ${port}`);
 });
+
+module.exports = app;
