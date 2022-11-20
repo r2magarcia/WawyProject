@@ -4,6 +4,11 @@ import { Button, Card, Form } from "react-bootstrap";
 import { url } from "../../../../config";
 
 export default function Journal(props: { loggedUser: any }) {
+  const session = localStorage.getItem("email");
+  if(!session){
+    window.location = `/login` as unknown as Location;
+  };
+
   const [notas, setNotas] = useState("");
   const [seguimientoMorning, setSeguimientoMorning] = useState<any[]>([
     { name: "", check: [false, false, false, false, false, false, false] },
