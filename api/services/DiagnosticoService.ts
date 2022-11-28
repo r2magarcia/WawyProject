@@ -9,6 +9,13 @@ module DiagnosticoService {
 
     return result;
   }
+  export function Delete() {
+    const query = `DELETE FROM ${database}.usuarios_has_diagnostico`;
+    const result = Model.execQuery(query);
+
+    return result;
+  }
+
   export function getDiagnosticos() {
     const query = `SELECT * FROM ${database}.diagnostico`;
     const result = Model.execQuery(query);
@@ -22,18 +29,21 @@ module DiagnosticoService {
   }
 
   export function insertDiagnosisForUser(idDiagnosis: number, usuarios: Array<any>){
-    let insertQuery = `INSERT INTO ${database}.usuarios_has_diagnostico (id, usuarios_idusuario, diagnostico_id, notas) VALUES `;
+    console.log('insertDiagnosisForUser'+ usuarios);
     if (usuarios.length > 0) {
+    let insertQuery = `INSERT INTO ${database}.usuarios_has_diagnostico (id, usuarios_idusuario, diagnostico_id, notas) VALUES `;
         usuarios.map((user: any) =>{
             console.log(user);
             
             insertQuery += `(NULL,' ${user.idusuario}', '${idDiagnosis}', ''),`;
         })
+        insertQuery = insertQuery.slice(0, -1);
+        console.log(insertQuery);
+        
+        const result = Model.execQuery(insertQuery);
+        return result;
     }
-    insertQuery = insertQuery.slice(0, -1);
-    console.log(insertQuery);
-    
-    const _ = Model.execQuery(insertQuery);
+    return;
   }
 
   export function getDiagnosticosForUsers() {

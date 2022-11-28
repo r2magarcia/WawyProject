@@ -36,6 +36,8 @@ export async function insertEntry(req: Request, res: Response) {
 }
 
 export async function asignDiagnosis(req: Request, res: Response) {
+  const _ = await DiagnosticoService.Delete();
+
   const diagnosticos = await DiagnosticoService.getDiagnosticos();
   diagnosticos.map(async (diagnostico: any) => {
     const assignedDiagnosis = await DiagnosticoService.getUsersByDiagnosis(
@@ -44,14 +46,14 @@ export async function asignDiagnosis(req: Request, res: Response) {
     console.log("------------");
     console.log(diagnostico);
     console.log(assignedDiagnosis);
-    const _ = DiagnosticoService.insertDiagnosisForUser(
-      diagnostico.id,
-      assignedDiagnosis
-    );
+      const _ = DiagnosticoService.insertDiagnosisForUser(
+        diagnostico.id,
+        assignedDiagnosis
+      );
   });
 
   console.log("diagnosticos");
-  return res.status(201);
+  return res.status(201).json({status: 'created'});
 }
 
 export async function getAllDiagnosis(req: Request, res: Response) {
