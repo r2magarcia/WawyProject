@@ -4,9 +4,10 @@ import { Button, Card, Form } from "react-bootstrap";
 import { url } from "../../../../config";
 
 export default function Journal(props: { loggedUser: any }) {
-  const session = localStorage.getItem("email");
+  const session = localStorage.getItem("email") != null;
   if(!session){
     window.location = `/login` as unknown as Location;
+    // return;
   };
 
   const [notas, setNotas] = useState("");
@@ -145,7 +146,9 @@ export default function Journal(props: { loggedUser: any }) {
     );
   };
   return (
+    
     <>
+    {session &&
       <Card className="card-bullet-journal">
         <Card.Body>
           <Form>
@@ -350,6 +353,7 @@ export default function Journal(props: { loggedUser: any }) {
           </Form>
         </Card.Body>
       </Card>
+    }
     </>
   );
 }
