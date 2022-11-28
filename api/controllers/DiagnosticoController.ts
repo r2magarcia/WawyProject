@@ -53,7 +53,7 @@ export async function asignDiagnosis(req: Request, res: Response) {
   });
 
   console.log("diagnosticos");
-  const _ = await getAllDiagnosis(req, res);
+  const _2 = await getAllDiagnosis(req, res);
 }
 
 export async function getAllDiagnosis(req: Request, res: Response) {
