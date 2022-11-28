@@ -26,12 +26,12 @@ export default class NotToDoList extends Component<props, state> {
   anything: any;
 
   render() {
-    var session = localStorage.getItem("email");
+    var session = localStorage.getItem("email") != null;
     if(!session){
       window.location = `/login` as unknown as Location;
     };
     return (
-      this.props.loggedUser &&
+      session &&
       <>
         <div className="ntdl-container">
           <div className="title-container">

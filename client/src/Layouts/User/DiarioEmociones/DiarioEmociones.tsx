@@ -155,12 +155,12 @@ export default class DiarioEmociones extends Component<props, state> {
   }
 
   render() {
-    var session = localStorage.getItem("email");
+    var session = localStorage.getItem("email") != null;
     if(!session){
       window.location = `/login` as unknown as Location;
     };
     return (
-      this.props.loggedUser && (
+      session && (
         <>
           <div className="calendar-container">
             <h2>Diario de emociones</h2>

@@ -13,10 +13,10 @@ export default class Home extends Component<props> {
   }
   
   render() {
-    var session = localStorage.getItem("email");
-    if(!session){
-      window.location = `/login` as unknown as Location;
-    };
+    // var session = localStorage.getItem("email");
+    // if(!session){
+    //   window.location = `/login` as unknown as Location;
+    // };
     return (
       <>
         <div className="ntdl-container">
