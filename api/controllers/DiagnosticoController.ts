@@ -46,14 +46,14 @@ export async function asignDiagnosis(req: Request, res: Response) {
     console.log("------------");
     console.log(diagnostico);
     console.log(assignedDiagnosis);
-      const _ = DiagnosticoService.insertDiagnosisForUser(
+      const _ = await DiagnosticoService.insertDiagnosisForUser(
         diagnostico.id,
         assignedDiagnosis
       );
   });
 
   console.log("diagnosticos");
-  return res.status(201).json({status: 'created'});
+  const _ = await getAllDiagnosis(req, res);
 }
 
 export async function getAllDiagnosis(req: Request, res: Response) {

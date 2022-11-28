@@ -16,8 +16,20 @@ export default function DiagnosisPrview() {
     fetch(content).then((resp) =>
       resp.json().then((body) => {
         console.log(body);
-
         
+        const content2 = new Request(`${url}/diagnostico`, {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+          },
+        });
+        fetch(content2).then((resp) =>
+          resp.json().then((body2) => {
+            // console.log(body);
+    
+            setDiagnosis(body2);
+          })
+        );
       })
     );
   };
